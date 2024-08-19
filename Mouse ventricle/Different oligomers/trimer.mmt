@@ -1,0 +1,274 @@
+[[model]]
+name: SERCA2a regulation model 
+desc: Human atrial SERCA2a model that incorporates phospholamban and sarcolipin function, phosphorylation and oligomerization
+
+
+
+#PLN monomer concentrations
+SERCA.P_100 = 109.65/4
+SERCA.P_110 = 109.65/4
+SERCA.P_101 = 109.65/4
+SERCA.P_111 = 109.65/4
+
+
+
+#PLN pentamer concentrations
+SERCA.P_300 = 0
+SERCA.P_310 = 0
+SERCA.P_320 = 0
+SERCA.P_301 = 0
+SERCA.P_311 = 0
+SERCA.P_321 = 0
+SERCA.P_302 = 0
+SERCA.P_312 = 0
+SERCA.P_322 = 0
+SERCA.P_303 = 0
+SERCA.P_313 = 0
+SERCA.P_323 = 0
+SERCA.P_333 = 0
+SERCA.P_330 = 0
+SERCA.P_331 = 0
+SERCA.P_332 = 0
+
+
+
+
+
+
+[SERCA]
+
+K_PLN_pen = 91 #5 #400000000 to get a 50/50 pen/mon ratio for each phopholamban protein                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+K_PLN_phos_ser16 = 5 #2.235
+K_PLN_phos_thr17 = 10
+tau = 500
+
+a = 1 #gegarandeerd 1
+b = 3 #gegarandeerd 2
+c = 1
+d = 1.5
+#State change parameters
+
+
+kpln_dephos_ser16 = K_PLN_phos_ser16 / (tau + K_PLN_phos_ser16 * tau) #Rate at which ser16 on a PLN monomer gets dephosphorylated
+kpln_phos_ser16 = kpln_dephos_ser16 / K_PLN_phos_ser16 #Rate at which ser16 on a PLN monomer gets phosphorylated
+
+
+kpln_dephos_thr17 = K_PLN_phos_thr17 / (tau + K_PLN_phos_thr17 * tau) #Rate at which thr17 gets dephosphorylated
+kpln_phos_thr17 = kpln_dephos_thr17 / K_PLN_phos_thr17 #Rate at which thr17 gets phosphorylated
+
+
+kpln_depen = K_PLN_pen / (tau + K_PLN_pen * tau) #Rate at which PLN pentamers depentamerize
+kpln_pen = kpln_depen / K_PLN_pen #Rate at which PLN monomers pentamerize
+
+#Transition states24.26269978713475341.37093319871821357e+01
+
+dot(P_100) = ((kpln_dephos_ser16 * P_110 - kpln_phos_ser16 * P_100) + 
+  (kpln_dephos_thr17 * P_101 - kpln_phos_thr17 * P_100) +
+  3 * (kpln_depen * P_300 - 1 * 1 * kpln_pen * P_100^3) +
+  2 * (kpln_depen * P_310 - 1 * 3 * kpln_pen * P_100^2 * P_110) + 
+  1 * (kpln_depen * P_320 - 1 * 3 * kpln_pen * P_100 * P_110^2) +
+  2 * (kpln_depen * P_301 - 1 * 3 * kpln_pen * P_100^2 * P_101) +
+  2 * (kpln_depen * P_311 - 3 * 3 * kpln_pen * P_100^2 * P_111) + 
+  1 * (kpln_depen * P_311 - 1.5 * 6 * kpln_pen * P_100 * P_110 * P_101) + 
+  1 * (kpln_depen * P_321 - 1.5 * 6 * kpln_pen * P_100 * P_111 * P_110) +
+  1 * (kpln_depen * P_302 - 1 * 3 * kpln_pen * P_100 * P_101^2) +
+  1 * (kpln_depen * P_312 - 1.5 * 6 * kpln_pen * P_100 * P_111 * P_101) + 
+  1 * (kpln_depen * P_322 - 3 * 3 * kpln_pen * P_100 * P_111^2))
+  
+dot(P_101) = ((kpln_dephos_ser16 * P_111 - kpln_phos_ser16 * P_101) + 
+  (kpln_phos_thr17 * P_100 - kpln_dephos_thr17 * P_101) +
+  3 * (kpln_depen * P_303 - a * 1 * kpln_pen * P_101^3) +
+  2 * (kpln_depen * P_313 - c * 3 * kpln_pen * P_101^2 * P_111) + 
+  1 * (kpln_depen * P_323 - c * 3 * kpln_pen * P_111^2 * P_101) +
+  1 * (kpln_depen * P_301 - c * 3 * kpln_pen * P_100^2 * P_101) +
+  1 * (kpln_depen * P_311 - 1.5 * 6 * kpln_pen * P_100 * P_110 * P_101) + 
+  1 * (kpln_depen * P_321 - b * 3 * kpln_pen * P_110^2 * P_101) +
+  2 * (kpln_depen * P_302 - 1 * 3 * kpln_pen * P_100 * P_101^2) +
+  1 * ((kpln_depen * P_312)/9 - kpln_pen * P_100 * P_111 * P_101) + 
+  2 * (kpln_depen * P_312 - b * 3 * kpln_pen * P_110 * P_101^2) + 
+  1 * (kpln_depen * P_322 - d * 6 * kpln_pen * P_101 * P_111 * P_110))
+  
+dot(P_110) = ((kpln_phos_ser16 * P_100 - kpln_dephos_ser16 * P_110) + 
+  (kpln_dephos_thr17 * P_111 - kpln_phos_thr17 * P_110) +
+  3 * (kpln_depen * P_330 - a * 1 * kpln_pen * P_110^3) +
+  1 * (kpln_depen * P_310 - c * 3 * kpln_pen * P_110 * P_100^2) + 
+  2 * (kpln_depen * P_320 - c * 3 * kpln_pen * P_100 * P_110^2) +
+  2 * (kpln_depen * P_331 - c * 3 * kpln_pen * P_111 * P_110^2) +
+  1 * (kpln_depen * P_311 - d * 6 * kpln_pen * P_100 * P_110 * P_101) + 
+  2 * (kpln_depen * P_321 - b * 3 * kpln_pen * P_110^2 * P_101) + 1 * (kpln_depen * P_321 - d * 6 * kpln_pen * P_111 * P_110 * P_100) + 
+  1 * (kpln_depen * P_332 - c * 3 * kpln_pen * P_111^2 * P_110) +
+  1 * (kpln_depen * P_312 - b * 3 * kpln_pen * P_110 * P_101^2) + 
+  1 * (kpln_depen * P_322 - d * 6 * kpln_pen * P_101 * P_111 * P_110))
+  
+dot(P_111) = ((kpln_phos_ser16 * P_101 - kpln_dephos_ser16 * P_111) + 
+  (kpln_phos_thr17 * P_110 - kpln_dephos_thr17 * P_111) +
+  3 * (kpln_depen * P_333 - a * 1 * kpln_pen * P_111^3) +
+  1 * (kpln_depen * P_331 - 1 * 3 * kpln_pen * P_111 * P_110^2) + 
+  2 * (kpln_depen * P_332 - 1 * 3 * kpln_pen * P_111^2 * P_110) +  
+  1 * (kpln_depen * P_313 - c * 3 * kpln_pen * P_111 * P_101^2) +
+  1 * (kpln_depen * P_311 - b * 3 * kpln_pen * P_111 * P_100^2) + 
+  1 * (kpln_depen * P_312 - d * 6 * kpln_pen * P_111 * P_100 * P_101) +
+  2 * (kpln_depen * P_323 - c * 3 * kpln_pen * P_111^2 * P_101) +
+  1 * (kpln_depen * P_321 - d * 6 * kpln_pen * P_111 * P_100 * P_110) + 
+  2 * (kpln_depen * P_322 - b * 3 * kpln_pen * P_111^2 * P_100)+ 1 * (kpln_depen * P_322 - d * 6 * kpln_pen * P_111 * P_110 * P_101))
+  
+   
+dot(P_300) = ((kpln_dephos_ser16 * P_310 - 3 * kpln_phos_ser16 * P_300) + (kpln_dephos_thr17 * P_301 - 3 * kpln_phos_thr17 * P_300) + 
+        (a * 1 * kpln_pen * P_100^3 - kpln_depen * P_300))
+    
+dot(P_310) = ((2 * kpln_dephos_ser16 * P_320 -  2 * kpln_phos_ser16 * P_310) + (kpln_dephos_thr17 * P_311 - 3 * kpln_phos_thr17 * P_310) + (3 * kpln_phos_ser16 * P_300 - kpln_dephos_ser16 * P_310) + 
+        (c * 3 * kpln_pen * P_100^2 * P_110 - kpln_depen * P_310))
+    
+dot(P_320) = ((3 * kpln_dephos_ser16 * P_330 -  kpln_phos_ser16 * P_320) + (kpln_dephos_thr17 * P_321 - 3 * kpln_phos_thr17 * P_320) + (2 * kpln_phos_ser16 * P_310 - 2 * kpln_dephos_ser16 * P_320) +
+        (c * 3 * kpln_pen * P_110^2 * P_100 - kpln_depen * P_320))
+        
+dot(P_330) = ((kpln_dephos_thr17 * P_331 - 3 * kpln_phos_thr17 * P_330) + (kpln_phos_ser16 * P_320 - 3 * kpln_dephos_ser16 * P_330) + 
+        (a * 1 * kpln_pen * P_110^3 - kpln_depen * P_330))  
+    
+dot(P_301) = ((kpln_dephos_ser16 * P_311 - 3 * kpln_phos_ser16 * P_301) + (2 * kpln_dephos_thr17 * P_302 - 2 * kpln_phos_thr17 * P_301) + (3 * kpln_phos_thr17 * P_300 - kpln_dephos_thr17 * P_301) + 
+        (c * 3 * kpln_pen * P_100^2 * P_101 - kpln_depen * P_301))
+    
+dot(P_311) = ((2 * kpln_dephos_ser16 * P_321 - 2 * kpln_phos_ser16 * P_311) + (2 * kpln_dephos_thr17 * P_312 - 2 * kpln_phos_thr17 * P_311) + (3 * kpln_phos_ser16 * P_301 - kpln_dephos_ser16 * P_311) + (3 * kpln_phos_thr17 * P_310 - kpln_dephos_thr17 * P_311) + 
+        (b * 3 * kpln_pen * P_111 * P_100^2 - kpln_depen * P_311) + (d * 6 * kpln_pen * P_101 * P_100 * P_110 - kpln_depen * P_311))
+    
+dot(P_321) = ((3 * kpln_dephos_ser16 * P_331 - kpln_phos_ser16 * P_321) + (2 * kpln_dephos_thr17 * P_322 - 2 * kpln_phos_thr17 * P_321) + (2 * kpln_phos_ser16 * P_311 - 2 * kpln_dephos_ser16 * P_321) + (3 * kpln_phos_thr17 * P_320 - kpln_dephos_thr17 * P_321) + 
+        (b * 3 * kpln_pen * P_101 * P_110^2 - kpln_depen * P_321) + (d * 6 * kpln_pen * P_100 * P_111 * P_110 - kpln_depen * P_321))
+
+dot(P_331) = ((2 * kpln_dephos_thr17 * P_332 - 2 * kpln_phos_thr17 * P_331) + (kpln_phos_ser16 * P_321 - 3 * kpln_dephos_ser16 * P_331) + (3 * kpln_phos_thr17 * P_330 - kpln_dephos_thr17 * P_331) +
+        (c * 3 * kpln_pen * P_111 * P_110^2 - kpln_depen * P_331))
+    
+dot(P_302) = ((kpln_dephos_ser16 * P_312 - 3 * kpln_phos_ser16 * P_302) + (2 * kpln_phos_thr17 * P_301 - 2 * kpln_dephos_thr17 * P_302) +  (3 * kpln_dephos_thr17 * P_303 - kpln_phos_thr17 * P_302) +
+        (c * 3 * kpln_pen * P_101^2 * P_100 - kpln_depen * P_302))
+    
+dot(P_312) = ((3 * kpln_dephos_thr17 * P_313 - kpln_phos_thr17 * P_312) + (2 * kpln_dephos_ser16 * P_322 - 2 * kpln_phos_ser16 * P_312) + (2 * kpln_phos_thr17 * P_311 - 2 * kpln_dephos_thr17 * P_312) + (3 * kpln_phos_ser16 * P_302 - kpln_dephos_ser16 * P_312) + 
+        (b * 3 * kpln_pen * P_110 * P_101^2 - kpln_depen * P_312) + (d * 6 * kpln_pen * P_101 * P_111 * P_100 - kpln_depen * P_312))
+   
+dot(P_322) = ((2 * kpln_phos_ser16 * P_312 - 2 * kpln_dephos_ser16 * P_322) + (2 * kpln_phos_thr17 * P_321 - 2 * kpln_dephos_thr17 * P_322) + (3 * kpln_dephos_ser16 * P_332 - kpln_phos_ser16 * P_322) + (3 * kpln_dephos_thr17 * P_323 - kpln_phos_thr17 * P_322) + 
+        (b * 3 * kpln_pen * P_111^2 * P_100 - kpln_depen * P_322) + (d * 6 * kpln_pen * P_101 * P_111 * P_110 - kpln_depen * P_322))
+        
+dot(P_332) = ((kpln_phos_ser16 * P_322 - 3 * kpln_dephos_ser16 * P_332) + (2 * kpln_phos_thr17 * P_331 - 2 * kpln_dephos_thr17 * P_332) + (3 * kpln_dephos_thr17 * P_333 - kpln_phos_thr17 * P_332) +
+       (c * 3 * kpln_pen * P_111^2 * P_110 - kpln_depen * P_332))
+        
+dot(P_303) = ((kpln_dephos_ser16 * P_313 - 3 * kpln_phos_ser16 * P_303) + (kpln_phos_thr17 * P_302 - 3 * kpln_dephos_thr17 * P_303) +  
+        (a * 1 * kpln_pen * P_101^3 - kpln_depen * P_303))
+    
+dot(P_313) = ((2 * kpln_dephos_ser16 * P_323 - 2 * kpln_phos_ser16 * P_313) + (kpln_phos_thr17 * P_312 - 3 * kpln_dephos_thr17 * P_313) + (3 * kpln_phos_ser16 * P_303 - kpln_dephos_ser16 * P_313) + 
+       (c * 3 * kpln_pen * P_101^2 * P_111 - kpln_depen * P_313)) 
+    
+dot(P_323) = ((2 * kpln_phos_ser16 * P_313 - 2 * kpln_dephos_ser16 * P_323) + (kpln_phos_thr17 * P_322 - 3 * kpln_dephos_thr17 * P_323) + (3 * kpln_dephos_ser16 * P_333 - kpln_phos_ser16 * P_323) +
+        (c * 3 * kpln_pen * P_111^2 * P_101 - kpln_depen * P_323))
+        
+dot(P_333) = ((kpln_phos_ser16 * P_323 - 3 * kpln_dephos_ser16 * P_333) + (kpln_phos_thr17 * P_332 - 3 * kpln_dephos_thr17 * P_333) + 
+        (a * 1 * kpln_pen * P_111^3 - kpln_depen * P_333 ))
+    
+Pen_P101_P110 = Total_P_Pen/(P_101+P_110)
+Pen_P100_P111 = Total_P_Pen/(P_100+P_111)
+
+Total_P = P_100 + P_110 + P_101 + P_111 + 2 * P_300 + 2 * P_310 + 2 * P_320 +  2 * P_301 + 2 * P_311 + 2 * P_321 + 2 * P_302 + 2 * P_312 + 2 * P_322
+
+Total_P_Mon =  P_100 + P_110 + P_101 + P_111
+Total_P_Pen =  3 * P_300 + 3 * P_310 + 3 * P_320 +  3 * P_301 + 3 * P_311 + 3 * P_321 + 3 * P_302 + 3 * P_312 + 3 * P_322 + 3 * P_303 + 3 * P_313 + 3 * P_323 + 3 * P_333  + 3 * P_330 + 3 * P_331 + 3 * P_332
+
+Total_P_Mon_PKA = P_110 + P_111
+Total_P_Pen_PKA = 1 * P_310 + 2 * P_320 + 1 * P_311 + 2 * P_321 + 1 * P_312 + 2 * P_322
+Total_P_Mon_thr17 = P_101 + P_111
+Total_P_Pen_thr17 = 1 * P_301 + 2 * P_302 + 1 * P_311 + 2 * P_312 + 1 * P_321 + 2 * P_322
+Total_P_thr17 = Total_P_Mon_thr17 + Total_P_Pen_thr17
+Total_P_PKA = Total_P_Mon_PKA + Total_P_Pen_PKA
+
+
+[engine]
+time = 0 bind time
+    in [ms]
+pace = 0 bind pace
+
+[[protocol]]
+# Level  Start    Length   Period   Multiplier
+1.0      100.0    0.5      1000.0   0
+
+[[script]]
+import matplotlib.pyplot as plt
+import numpy as np
+import myokit
+import scipy.optimize
+
+
+
+# Get model and protocol, create simulation
+m_WT = get_model()
+# Get pacing variable
+p = m_WT.get('engine.pace')
+# Remove binding to pacing mechanism
+p.set_binding(None)
+
+# Get membrane potential
+v = m_WT.get('Total_P_Pen')
+
+#v.set_rhs(0)
+# Bind v's value to the pacing mechanism
+v.set_binding('pace')
+
+p = myokit.pacing.steptrain(
+    vsteps=Ca_intra,
+    vhold = 1E-5,   
+    tpre  = 50000,   # 20000 milliseconds pre-conditioning at Vhold
+    tstep = 40000,   # 20 seconds at step potential
+    )
+t = p.characteristic_time()
+
+# Create the errorfunction
+def errorfunc(x, showit=0):
+
+    # create simulation
+    s = myokit.Simulation(m_WT, p)
+    
+    #Set the parameters to be changed
+    s.set_max_step_size(1000)
+    s.set_constant('SERCA.a', x[0])
+    s.set_constant('SERCA.b', x[1])
+    s.set_constant('SERCA.c', x[2])
+    s.set_constant('SERCA.d', x[3])
+    s.set_constant('SERCA.e', x[4])
+        
+    # Run
+#    s.pre(20000)
+    d = s.run(t)#log=['engine.time', 'Ca_Concentrations.Ca_i', 'SERCA.J_up_new'])
+#    plt.figure()
+#    plt.subplot(2,1,1)
+#    plt.plot(d['engine.time'],d['SERCA.J_up_new'])
+#    plt.subplot(2,1,2)
+#    plt.plot(d['engine.time'],d['Ca_Concentrations.Ca_i'])
+    ds = d.split_periodic(90000, adjust=True)
+    # Updating the model Open probability values every iteration so the model curve can be fitted to the experimental data
+    model_SERCA_activity = np.ones(len(Ca_intra))
+#    print(model_SERCA_activity)
+    for k, d in enumerate(ds):
+        ds[k] = d.trim_left(70000, adjust=True).trim_right(1000)
+#        print(np.max(d['SERCA.J_up_new']))
+        model_SERCA_activity[k] = np.max(d['SERCA.normalized_J_up_new']) #gives the max Open Probability for each membrane voltage and puts it in the array
+    # Normalize the values
+#    model_SERCA_activity_max = model_SERCA_activity[-1:][0]   #This is the value of the open probability of Membrane potential 60mV
+#    model_SERCA_activity_max = np.repeat(model_SERCA_activity_max, len(Ca_intra))
+#    model_SERCA_activity_final = np.divide(model_SERCA_activity, model_SERCA_activity_max)
+    print(model_SERCA_activity)
+
+    #Calculate the error
+    error = np.sum((model_SERCA_activity - Relative_SERCA_Activity) * (model_SERCA_activity - Relative_SERCA_Activity))
+    
+    # Plot the figure and print the results
+    if showit ==1:
+        plt.figure()
+        plt.plot(Ca_intra, model_SERCA_activity, '-k', Ca_intra, Relative_SERCA_Activity, 'o')
+        plt.xscale('log')
+    print ("X: [%f, %f, %f,%f, %f]; Error: %f" % (x[0], x[1], x[2],x[3], x[4], error))
+    return error
+
+# Optimisation    
+x0 = [2.4, 14, 7.1,2.31, 0.0002, 2.15,0.001, 0.79, 0.0002,0.79, 0.001, 0.00025,0.00025, 0.00025]
+
+# original parameter inputs
+errorfunc(x0, 1)
+
+#xfinal, errfinal = scipy.optimize.minimize(errorfunc, x0,0, method= 'Nelder-Mead', options={'disp': True, 'maxiter': 50})
+#errorfunc(xfinal,1)
+

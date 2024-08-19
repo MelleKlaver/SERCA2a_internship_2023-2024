@@ -1,0 +1,1167 @@
+[[model]]
+author: Cellml converter
+desc: """
+    Computer model of action potential of mouse ventricular myocytes
+    Noble
+    Penny
+    Oxford University
+    Model Status
+    This CellML model runs in both
+    OpenCell and COR to reproduce the the action potential traces from Figure
+    16 of the publication. This model represents the APICAL CELL variant as
+    described in Bondarenko et al.'s 2004 paper.
+    Model Structure
+    ABSTRACT: We
+    have developed a mathematical model of the mouse ventricular myocyte action
+    potential (AP) from voltage-clamp data of the underlying currents and Ca2+
+    transients. Wherever possible, we used Markov models to represent the
+    molecular structure and function of ion channels. The model includes
+    detailed intracellular Ca2+ dynamics, with simulations of localized events
+    such as sarcoplasmic Ca2+ release into a small intracellular volume bounded
+    by the sarcolemma and sarcoplasmic reticulum. Transporter-mediated Ca2+
+    fluxes from the bulk cytosol are closely matched to the experimentally
+    reported values and predict stimulation rate-dependent changes in Ca2+
+    transients. Our model reproduces the properties of cardiac myocytes from
+    two different regions of the heart: the apex and the septum. The septum has
+    a relatively prolonged AP, which reflects a relatively small contribution
+    from the rapid transient outward K+ current in the septum. The attribution
+    of putative molecular bases for several of the component currents enables
+    our mouse model to be used to simulate the behavior of genetically modified
+    transgenic mice.
+    The original paper reference is cited below:
+    Computer
+    model of action potential of mouse ventricular myocytes, Vladimir E.
+    Bondarenko, Gyula P. Szigeti, Glenna C. L. Bett, Song-Jung Kim, and Randall
+    L. Rasmusson, 2004,
+    American Journal of Physiology
+    , 287, H1378-H1403.
+    PubMed ID: 15142845
+    cell diagram
+    Schematic diagram of the mouse model ionic
+    currents and calcium fluxes.
+    reaction diagram
+    State diagram of the Markov
+    model for the sodium channel.
+    C
+    Na
+    denotes a closed channel state,
+    O
+    Na
+    is
+    the open state,
+    IF
+    Na
+    represents the fast, inactivated state,
+    I1
+    Na
+    and
+    I2
+    Na
+    are the intermediate inactivated states, and
+    IC2
+    Na
+    and
+    IC3
+    Na
+    are the
+    closed-inactivation states.
+    """
+name: bondarenko_2004_apical
+# Initial values
+
+	
+membrane.V                                                       = -82.4202
+calcium_concentration.Cai                                        = 0.115001
+calcium_concentration.Cass                                       = 0.115001
+calcium_concentration.CaJSR                                      = 1299.5
+calcium_concentration.CaNSR                                      = 1299.5
+calcium_fluxes.P_RyR                                             = 0
+calcium_buffering.LTRPN_Ca                                       = 11.2684
+calcium_buffering.HTRPN_Ca                                       = 125.29
+ryanodine_receptors.P_O1                                         =  1.49102000000000000e-5
+ryanodine_receptors.P_O2                                         =  9.51725999999999945e-11
+ryanodine_receptors.P_C2                                         =  1.67739999999999990e-4
+L_type_calcium_current.O                                         =  9.30307999999999919e-19
+L_type_calcium_current.C2                                        =  1.24215999999999991e-4
+L_type_calcium_current.C3                                        =  5.78679000000000003e-9
+L_type_calcium_current.C4                                        =  1.19816000000000002e-13
+L_type_calcium_current.I1                                        =  4.97923000000000004e-19
+L_type_calcium_current.I2                                        =  3.45847000000000021e-14
+L_type_calcium_current.I3                                        =  1.85106000000000007e-14
+sodium_concentration.Nai                                         = 14237.1
+fast_sodium_current.C_Na2                                        = 0.020752
+fast_sodium_current.C_Na1                                        =  2.79132000000000024e-4
+fast_sodium_current.O_Na                                         =  7.13482999999999984e-7
+fast_sodium_current.IF_Na                                        =  1.53176000000000012e-4
+fast_sodium_current.I1_Na                                        =  6.73345000000000052e-7
+fast_sodium_current.I2_Na                                        =  1.55786999999999992e-9
+fast_sodium_current.IC_Na2                                       = 0.0113879
+fast_sodium_current.IC_Na3                                       = 0.34278
+potassium_concentration.Ki                                       = 143720
+fast_transient_outward_potassium_current.ato_f                   =  2.65562999999999997e-3
+fast_transient_outward_potassium_current.ito_f                   = 0.999977
+slow_transient_outward_potassium_current.ato_s                   =  4.17069000000000001e-4
+slow_transient_outward_potassium_current.ito_s                   = 0.998543
+slow_delayed_rectifier_potassium_current.nKs                     =  2.62753000000000010e-4
+ultra_rapidly_activating_delayed_rectifier_potassium_current.aur =  4.17069000000000001e-4
+ultra_rapidly_activating_delayed_rectifier_potassium_current.iur = 0.998543
+non_inactivating_steady_state_potassium_current.aKss             =  4.17069000000000001e-4
+non_inactivating_steady_state_potassium_current.iKss             = 1
+rapid_delayed_rectifier_potassium_current.C_K2                   =  6.41228999999999996e-4
+rapid_delayed_rectifier_potassium_current.C_K1                   =  9.92512999999999989e-4
+rapid_delayed_rectifier_potassium_current.O_K                    =  1.75298000000000001e-4
+rapid_delayed_rectifier_potassium_current.I_K                    =  3.19128999999999973e-5
+SERCA.S           = 21.5
+SERCA.S_P_100       = 0
+SERCA.S_P_110       = 0
+SERCA.S_P_101       = 0
+SERCA.S_P_111       = 0
+SERCA.S_N_10       = 0
+SERCA.S_N_11      = 0
+SERCA.S_P_100_N_10   = 0
+SERCA.S_P_100_N_11   = 0
+SERCA.S_P_110_N_10   = 0
+SERCA.S_P_110_N_11   = 0
+SERCA.S_P_101_N_10   = 0
+SERCA.S_P_101_N_11   = 0
+SERCA.S_P_111_N_10   = 0
+SERCA.S_P_111_N_11   = 0
+
+#PLN monomer concentrations
+SERCA.P_100 = 109.65
+SERCA.P_110 = 0
+SERCA.P_101 = 0
+SERCA.P_111 = 0
+
+#SLN monomer concentrations
+SERCA.N_10 = 9.2
+SERCA.N_11 = 0
+
+#PLN pentamer concentrations
+SERCA.P_500 = 0
+SERCA.P_510 = 0
+SERCA.P_520 = 0
+SERCA.P_530 = 0
+SERCA.P_540 = 0
+SERCA.P_550 = 0
+SERCA.P_501 = 0
+SERCA.P_511 = 0
+SERCA.P_521 = 0
+SERCA.P_531 = 0
+SERCA.P_541 = 0
+SERCA.P_551 = 0
+SERCA.P_502 = 0
+SERCA.P_512 = 0
+SERCA.P_522 = 0
+SERCA.P_532 = 0
+SERCA.P_542 = 0
+SERCA.P_552 = 0
+SERCA.P_503 = 0
+SERCA.P_513 = 0
+SERCA.P_523 = 0
+SERCA.P_533 = 0
+SERCA.P_543 = 0
+SERCA.P_553 = 0
+SERCA.P_504 = 0
+SERCA.P_514 = 0
+SERCA.P_524 = 0
+SERCA.P_534 = 0
+SERCA.P_544 = 0
+SERCA.P_554 = 0
+SERCA.P_505 = 0
+SERCA.P_515 = 0
+SERCA.P_525 = 0
+SERCA.P_535 = 0
+SERCA.P_545 = 0
+SERCA.P_555 = 0
+
+#SLN oligomer concentrations
+SERCA.N_50 = 0
+SERCA.N_51 = 0
+SERCA.N_52 = 0
+SERCA.N_53 = 0
+SERCA.N_54 = 0
+SERCA.N_55 = 0
+
+[parameters]
+useSERCAComplexModel = 1
+
+ICaL_Block = 0.0
+IK1_Block = 0.0
+IKr_Block = 0.0
+IKs_Block = 0.0
+IKur_Block = 0.0
+INa_Block = 0.0
+INaL_Block = 0.0
+INaK_Block = 0.0
+INCX_Block = 0.0
+Ito_Block = 0.0
+
+Ca_o = 1.8
+K_o = 5.4
+Na_o = 140
+
+[output]
+Vm = membrane.V
+Cai = calcium_concentration.Cai
+
+[L_type_calcium_current]
+C1 = 1 - (O + C2 + C3 + C4 + I1 + I2 + I3)
+    in [1]
+dot(C2) = 4 * alpha * C1 + 2 * beta * C3 - (beta * C2 + 3 * alpha * C2)
+    in [1]
+dot(C3) = 3 * alpha * C2 + 3 * beta * C4 - (2 * beta * C3 + 2 * alpha * C3)
+    in [1]
+dot(C4) = 2 * alpha * C3 + 4 * beta * O + 0.01 [ms] * (4 * Kpcb * beta * I1 - alpha * gamma * C4) + 0.002 * (4 * beta * I2 - Kpcf * C4) + 4 [ms] * beta * Kpcb * I3 - (3 * beta * C4 + alpha * C4 + 1 [ms] * gamma * Kpcf * C4)
+    in [1]
+E_CaL = 63
+    in [mV]
+dot(I1) = gamma * O + 0.001 * (alpha * I3 - Kpcf * I1) + 0.01 [ms] * (alpha * gamma * C4 - 4 * beta * Kpcf * I1) - Kpcb * I1
+    in [1]
+dot(I2) = 0.001 * (Kpcf * O - alpha * I2) + Kpcb * I3 + 0.002 * (Kpcf * C4 - 4 * beta * I2) - gamma * I2
+    in [1]
+dot(I3) = 0.001 * (Kpcf * I1 - alpha * I3) + gamma * I2 + 1 [ms] * gamma * Kpcf * C4 - (4 [ms] * beta * Kpcb * I3 + Kpcb * I3)
+    in [1]
+Kpc_half = 20
+    in [uM]
+Kpc_max = 0.23324
+    in [mS/uF]
+Kpcb = 0.0005
+    in [mS/uF]
+Kpcf = 13 [mS/uF] * (1 - exp(-(membrane.V + 14.5 [mV]) ^ 2 / 100 [mV^2]))
+    in [mS/uF]
+dot(O) = alpha * C4 + Kpcb * I1 + 0.001 * (alpha * I2 - Kpcf * O) - (4 * beta * O + gamma * O)
+    in [1]
+alpha = 0.4 [mS/uF] * exp((membrane.V + 12 [mV]) / 10 [mV]) * (1 + 0.7 * exp(-(membrane.V + 40 [mV]) ^ 2 / 10 [mV^2]) - 0.75 * exp(-(membrane.V + 20 [mV]) ^ 2 / 400 [mV^2])) / (1 + 0.12 * exp((membrane.V + 12 [mV]) / 10 [mV]))
+    in [mS/uF]
+beta = 0.05 [mS/uF] * exp(-(membrane.V + 12 [mV]) / 13 [mV])
+    in [mS/uF]
+g_CaL = 0.1729
+    in [mS/uF]
+gamma = Kpc_max * calcium_concentration.Cass / (Kpc_half + calcium_concentration.Cass)
+    in [mS/uF]
+i_CaL = (1 - parameters.ICaL_Block) * g_CaL * O * (membrane.V - E_CaL)
+    in [A/F]
+i_CaL_max = 7
+    in [A/F]
+
+[calcium_activated_chloride_current]
+E_Cl = -40
+    in [mV]
+Km_Cl = 10
+    in [uM]
+O_ClCa = 0.2 / (1 + exp(-(membrane.V - 46.7 [mV]) / 7.8 [mV]))
+    in [1]
+g_ClCa = 10
+    in [mS/uF]
+i_ClCa = g_ClCa * O_ClCa * calcium_concentration.Cai / (calcium_concentration.Cai + Km_Cl) * (membrane.V - E_Cl)
+    in [A/F]
+
+[calcium_background_current]
+E_CaN = membrane.R * membrane.T / (2 * membrane.F) * log(membrane.Cao / calcium_concentration.Cai)
+    in [mV]
+g_Cab = 0.000367
+    in [mS/uF]
+i_Cab = g_Cab * (membrane.V - E_CaN)
+    in [A/F]
+
+[calcium_buffering]
+dot(HTRPN_Ca) = calcium_fluxes.k_plus_htrpn * calcium_concentration.Cai * (HTRPN_tot - HTRPN_Ca) - calcium_fluxes.k_minus_htrpn * HTRPN_Ca
+    in [uM]
+HTRPN_tot = 140
+    in [uM]
+dot(LTRPN_Ca) = calcium_fluxes.k_plus_ltrpn * calcium_concentration.Cai * (LTRPN_tot - LTRPN_Ca) - calcium_fluxes.k_minus_ltrpn * LTRPN_Ca
+    in [uM]
+LTRPN_tot = 70
+    in [uM]
+
+[calcium_concentration]
+BJSR = (1 + CSQN_tot * Km_CSQN / (Km_CSQN + CaJSR) ^ 2) ^ (-1)
+    in [1]
+Bi = (1 + CMDN_tot * Km_CMDN / (Km_CMDN + Cai) ^ 2) ^ (-1)
+    in [1]
+Bss = (1 + CMDN_tot * Km_CMDN / (Km_CMDN + Cass) ^ 2) ^ (-1)
+    in [1]
+CMDN_tot = 50
+    in [uM]
+CSQN_tot = 15000
+    in [uM]
+dot(CaJSR) = BJSR * (calcium_fluxes.J_tr - calcium_fluxes.J_rel)
+    in [uM]
+dot(CaNSR) = (calcium_fluxes.J_up - calcium_fluxes.J_leak) * membrane.Vmyo / membrane.VNSR - calcium_fluxes.J_tr * membrane.VJSR / membrane.VNSR
+    in [uM]
+dot(Cai) = Bi * (calcium_fluxes.J_leak + calcium_fluxes.J_xfer - (calcium_fluxes.J_up + calcium_fluxes.J_trpn + (calcium_background_current.i_Cab + calcium_pump_current.i_pCa - 2 * sodium_calcium_exchange_current.i_NaCa) * membrane.Acap * membrane.Cm / (2 * membrane.Vmyo * membrane.F)))
+    in [uM]
+dot(Cass) = Bss * (calcium_fluxes.J_rel * membrane.VJSR / membrane.Vss - (calcium_fluxes.J_xfer * membrane.Vmyo / membrane.Vss + L_type_calcium_current.i_CaL * membrane.Acap * membrane.Cm / (2 * membrane.Vss * membrane.F)))
+    in [uM]
+Km_CMDN = 0.238
+    in [uM]
+Km_CSQN = 800
+    in [uM]
+
+[calcium_fluxes]
+J_leak = v2 * (calcium_concentration.CaNSR - calcium_concentration.Cai)
+    in [mol/m^3/s]
+J_rel = v1 * (ryanodine_receptors.P_O1 + ryanodine_receptors.P_O2) * (calcium_concentration.CaJSR - calcium_concentration.Cass) * P_RyR
+    in [mol/m^3/s]
+J_tr = (calcium_concentration.CaNSR - calcium_concentration.CaJSR) / tau_tr
+    in [mol/m^3/s]
+J_trpn = k_plus_htrpn * calcium_concentration.Cai * (calcium_buffering.HTRPN_tot - calcium_buffering.HTRPN_Ca) + k_plus_ltrpn * calcium_concentration.Cai * (calcium_buffering.LTRPN_tot - calcium_buffering.LTRPN_Ca) - (k_minus_htrpn * calcium_buffering.HTRPN_Ca + k_minus_ltrpn * calcium_buffering.LTRPN_Ca)
+    in [mol/m^3/s]
+J_xfer = (calcium_concentration.Cass - calcium_concentration.Cai) / tau_xfer
+    in [mol/m^3/s]
+
+# Old SERCA
+J_up_orig = v3 * calcium_concentration.Cai ^ 2 / (Km_up ^ 2 + calcium_concentration.Cai ^ 2)
+    in [mol/m^3/s]        
+Km_up = 0.5
+    in [uM]
+    
+# Choose final SERCA flux
+#J_up = J_up_orig
+J_up = if(parameters.useSERCAComplexModel == 0, J_up_orig, SERCA.J_up_new)
+
+# RyR state variables
+dot(P_RyR) = -0.04 [mS/uF] * P_RyR - 0.1 [mS/uF] * L_type_calcium_current.i_CaL / L_type_calcium_current.i_CaL_max * exp(-(membrane.V - 5 [mV]) ^ 2 / 648 [mV^2])
+    in [1]
+k_minus_htrpn = 3.2e-5
+    in [mS/uF]
+k_minus_ltrpn = 0.0196
+    in [mS/uF]
+k_plus_htrpn = 0.00237
+    in [m^3/s/mol (1000000)]
+k_plus_ltrpn = 0.0327
+    in [m^3/s/mol (1000000)]
+tau_tr = 20
+    in [ms]
+tau_xfer = 8
+    in [ms]
+v1 = 4.5
+    in [mS/uF]
+v2 = 1.74e-5
+    in [mS/uF]
+v3 = 0.45
+    in [mol/m^3/s]
+
+# New SERCA (Heijman-Pegah-Klaver)
+[SERCA]
+K_SERCA_PLN = 5.4
+K_SERCA_SLN = 30
+K_PLN_pen = 4000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+K_SLN_pen = 1000000000
+K_PLN_phos_ser16_pen = 0.85 
+K_PLN_phos_ser16_mon = 25
+K_PLN_phos_thr17 = 7.2
+K_SLN_phos = 14.4
+tau = 500
+
+#State change parameters
+  
+kserca_pln_de = K_SERCA_PLN / (tau + K_SERCA_PLN * tau) #Rate at which SERCA and PLN detach
+kserca_pln = kserca_pln_de / K_SERCA_PLN #Rate at which SERCA and PLN bind
+
+kserca_sln_de = K_SERCA_SLN / (tau + K_SERCA_SLN * tau) #Rate at which SERCA and SLN detach
+kserca_sln = kserca_sln_de / K_SERCA_SLN #Rate at which SERCA and SLN bind
+
+kpln_dephos_ser16_mon = K_PLN_phos_ser16_mon / (tau + K_PLN_phos_ser16_mon * tau) #Rate at which ser16 on a PLN monomer gets dephosphorylated
+kpln_phos_ser16_mon = kpln_dephos_ser16_mon / K_PLN_phos_ser16_mon #Rate at which ser16 on a PLN monomer gets phosphorylated
+
+kpln_dephos_ser16_pen = K_PLN_phos_ser16_pen / (tau + K_PLN_phos_ser16_pen * tau) #Rate at which ser16 on a PLN pentamer gets dephosphorylated
+kpln_phos_ser16_pen = kpln_dephos_ser16_pen / K_PLN_phos_ser16_pen #Rate at which ser16 on a PLN pentamer gets phosphorylated
+
+kpln_dephos_thr17 = K_PLN_phos_thr17 / (tau + K_PLN_phos_thr17 * tau) #Rate at which thr17 gets dephosphorylated
+kpln_phos_thr17 = kpln_dephos_thr17 / K_PLN_phos_thr17 #Rate at which thr17 gets phosphorylated
+
+ksln_dephos = K_SLN_phos / (tau + K_SLN_phos * tau) #Rate at which SLN  gets dephosphorylated
+ksln_phos = ksln_dephos / K_SLN_phos #Rate at which SLN gets phosphorylated
+
+kpln_depen = K_PLN_pen / (tau + K_PLN_pen * tau) #Rate at which PLN pentamers depentamerize
+kpln_pen = kpln_depen / K_PLN_pen #Rate at which PLN monomers pentamerize
+
+ksln_depen = K_SLN_pen / (tau + K_SLN_pen * tau) #Rate at which SLN monomers depentamerize
+ksln_pen = ksln_depen / K_SLN_pen #Rate at which SLN monomers pentamerize
+    
+#Transition states
+
+dot(S) = ((kserca_pln_de * S_P_100 - kserca_pln * S * P_100) + 
+  (kserca_pln_de * S_P_110 - kserca_pln * S * P_110) +
+  (kserca_pln_de * S_P_101 - kserca_pln * S * P_101) +
+  (kserca_pln_de * S_P_111 - kserca_pln * S * P_111) +
+  (kserca_sln_de * S_N_10 - kserca_sln * S * N_10) +
+  (kserca_sln_de * S_N_11 - kserca_sln * S * N_11)) 
+ 
+dot(S_P_100) = ((kserca_pln * S * P_100 - kserca_pln_de * S_P_100) + 
+  (kserca_sln_de * S_P_100_N_10 - kserca_sln * S_P_100 * N_10) + 
+  (kserca_sln_de * S_P_100_N_11 - kserca_sln * S_P_100 * N_11) +
+  (kpln_dephos_ser16_mon * S_P_110 - kpln_phos_ser16_mon * S_P_100) + 
+  (kpln_dephos_thr17 * S_P_101 - kpln_phos_thr17 * S_P_100))  
+  
+dot(S_P_110) = ((kserca_pln * S * P_110 - kserca_pln_de * S_P_110) + 
+  (kserca_sln_de * S_P_110_N_10 - kserca_sln * S_P_110 * N_10) + 
+  (kserca_sln_de * S_P_110_N_11 - kserca_sln * S_P_110 * N_11) +
+  (kpln_phos_ser16_mon * S_P_100 - kpln_dephos_ser16_mon * S_P_110) + 
+  (kpln_dephos_thr17 * S_P_111 - kpln_phos_thr17 * S_P_110))  
+  
+dot(S_P_101) = ((kserca_pln * S * P_101 - kserca_pln_de * S_P_101) + 
+  (kserca_sln_de * S_P_101_N_10 - kserca_sln * S_P_101 * N_10) + 
+  (kserca_sln_de * S_P_101_N_11 - kserca_sln * S_P_101 * N_11) +
+  (kpln_dephos_ser16_mon * S_P_111 - kpln_phos_ser16_mon * S_P_101) +
+  (kpln_phos_thr17 * S_P_100 - kpln_dephos_thr17 * S_P_101))  
+  
+dot(S_P_111) = ((kserca_pln * S * P_111 - kserca_pln_de * S_P_111) + 
+  (kserca_sln_de * S_P_111_N_10 - kserca_sln * S_P_111 * N_10) + 
+  (kserca_sln_de * S_P_111_N_11 - kserca_sln * S_P_111 * N_11) +
+  (kpln_phos_ser16_mon * S_P_101 - kpln_dephos_ser16_mon * S_P_111) +
+  (kpln_phos_thr17 * S_P_110 - kpln_dephos_thr17 * S_P_111))  
+
+dot(S_N_10) = ((kserca_sln * S * N_10 - kserca_sln_de * S_N_10) + 
+  (kserca_pln_de * S_P_100_N_10 - kserca_pln * S_N_10 * P_100) + 
+  (kserca_pln_de * S_P_110_N_10 - kserca_pln * S_N_10 * P_110) +
+  (kserca_pln_de * S_P_101_N_10 - kserca_pln * S_N_10 * P_101) + 
+  (kserca_pln_de * S_P_111_N_10 - kserca_pln * S_N_10 * P_111) +
+  (ksln_dephos * S_N_11 - ksln_phos * S_N_10))  
+
+dot(S_N_11) = ((kserca_sln * S * N_11 - kserca_sln_de * S_N_11) + 
+  (kserca_pln_de * S_P_100_N_11 - kserca_pln * S_N_11 * P_100) + 
+  (kserca_pln_de * S_P_110_N_11 - kserca_pln * S_N_11 * P_110) +
+  (kserca_pln_de * S_P_101_N_11 - kserca_pln * S_N_11 * P_101) + 
+  (kserca_pln_de * S_P_111_N_11 - kserca_pln * S_N_11 * P_111) +
+  (ksln_phos * S_N_10 - ksln_dephos * S_N_11))  
+  
+dot(S_P_100_N_10) = ((kserca_pln * S_N_10 * P_100 - kserca_pln_de * S_P_100_N_10) + 
+  (kserca_sln * S_P_100 * N_10 - kserca_sln_de * S_P_100_N_10) +
+  (kpln_dephos_ser16_mon * S_P_110_N_10 - kpln_phos_ser16_mon * S_P_100_N_10) + 
+  (kpln_dephos_thr17 * S_P_101_N_10 - kpln_phos_thr17 * S_P_100_N_10) +
+  (ksln_dephos * S_P_100_N_11 - ksln_phos * S_P_100_N_10))  
+  
+dot(S_P_100_N_11) = ((kserca_pln * S_N_11 * P_100 - kserca_pln_de * S_P_100_N_11) + 
+  (kserca_sln * S_P_100 * N_11 - kserca_sln_de * S_P_100_N_11) +
+  (kpln_dephos_ser16_mon * S_P_110_N_11 - kpln_phos_ser16_mon * S_P_100_N_11) + 
+  (kpln_dephos_thr17 * S_P_101_N_11 - kpln_phos_thr17 * S_P_100_N_11) + 
+  (ksln_phos * S_P_100_N_10 - ksln_dephos * S_P_100_N_11))  
+
+dot(S_P_110_N_10) = ((kserca_pln * S_N_10 * P_110 - kserca_pln_de * S_P_110_N_10) + 
+  (kserca_sln * S_P_110 * N_10 - kserca_sln_de * S_P_110_N_10) +
+  (kpln_phos_ser16_mon * S_P_100_N_10 - kpln_dephos_ser16_mon * S_P_110_N_10) + 
+  (kpln_dephos_thr17 * S_P_111_N_10 - kpln_phos_thr17 * S_P_110_N_10) +
+  (ksln_dephos * S_P_110_N_11 - ksln_phos * S_P_110_N_10))  
+  
+dot(S_P_110_N_11) = ((kserca_pln * S_N_11 * P_110 - kserca_pln_de * S_P_110_N_11) + 
+  (kserca_sln * S_P_110 * N_11 - kserca_sln_de * S_P_110_N_11) +
+  (kpln_phos_ser16_mon * S_P_100_N_11 - kpln_dephos_ser16_mon * S_P_110_N_11) + 
+  (kpln_dephos_thr17 * S_P_111_N_11 - kpln_phos_thr17 * S_P_110_N_11) +
+  (ksln_phos * S_P_110_N_10 - ksln_dephos * S_P_110_N_11))  
+
+dot(S_P_101_N_10) = ((kserca_pln * S_N_10 * P_101 - kserca_pln_de * S_P_101_N_10) + 
+  (kserca_sln * S_P_101 * N_10 - kserca_sln_de * S_P_101_N_10) +
+  (kpln_dephos_ser16_mon * S_P_111_N_10 - kpln_phos_ser16_mon * S_P_101_N_10) + 
+  (kpln_phos_thr17 * S_P_100_N_10 - kpln_dephos_thr17 * S_P_101_N_10) +
+  (ksln_dephos * S_P_101_N_11 - ksln_phos * S_P_101_N_10))  
+  
+dot(S_P_101_N_11) = ((kserca_pln * S_N_11 * P_101 - kserca_pln_de * S_P_101_N_11) + 
+  (kserca_sln * S_P_101 * N_11 - kserca_sln_de * S_P_101_N_11) +
+  (kpln_dephos_ser16_mon * S_P_111_N_11 - kpln_phos_ser16_mon * S_P_101_N_11) + 
+  (kpln_phos_thr17 * S_P_100_N_11 - kpln_dephos_thr17 * S_P_101_N_11) +
+  (ksln_phos * S_P_101_N_10 - ksln_dephos * S_P_101_N_11))  
+
+dot(S_P_111_N_10) = ((kserca_pln * S_N_10 * P_111 - kserca_pln_de * S_P_111_N_10) + 
+  (kserca_sln * S_P_111 * N_10 - kserca_sln_de * S_P_111_N_10) +
+  (kpln_phos_ser16_mon * S_P_101_N_10 - kpln_dephos_ser16_mon * S_P_111_N_10) + 
+  (kpln_phos_thr17 * S_P_110_N_10 - kpln_dephos_thr17 * S_P_111_N_10) +
+  (ksln_dephos * S_P_111_N_11 - ksln_phos * S_P_111_N_10))  
+  
+dot(S_P_111_N_11) = ((ksln_phos * S_P_111_N_10 - ksln_dephos * S_P_111_N_11) + 
+  (kpln_phos_thr17 * S_P_110_N_11 - kpln_dephos_thr17 * S_P_111_N_11) + 
+  (kpln_phos_ser16_mon * S_P_101_N_11 - kpln_dephos_ser16_mon * S_P_111_N_11) + 
+  (kserca_pln * S_N_11 * P_111 - kserca_pln_de * S_P_111_N_11) + 
+  (kserca_sln * S_P_111 * N_11 - kserca_sln_de * S_P_111_N_11))
+  
+dot(P_100) = ((kserca_pln_de * S_P_100 - kserca_pln * S * P_100) + 
+  (kserca_pln_de * S_P_100_N_10 - kserca_pln * S_N_10 * P_100) +
+  (kserca_pln_de * S_P_100_N_11 - kserca_pln * S_N_11 * P_100) +
+  (kpln_dephos_ser16_mon * P_110 - kpln_phos_ser16_mon * P_100) + 
+  (kpln_dephos_thr17 * P_101 - kpln_phos_thr17 * P_100) +
+  5 * ((kpln_depen * P_500)/1 - kpln_pen * P_100^5) +
+  4 * ((kpln_depen * P_510)/5 - kpln_pen * P_100^4 * P_110) +
+  3 * ((kpln_depen * P_520)/10 - kpln_pen * P_100^3 * P_110^2) +
+  2 * ((kpln_depen * P_530)/10 - kpln_pen * P_100^2 * P_110^3) +
+  1 * ((kpln_depen * P_540)/5 - kpln_pen * P_100 * P_110^4) + 
+  4 * ((kpln_depen * P_501)/5 - kpln_pen * P_100^4 * P_101) + 
+  4 * ((kpln_depen * P_511)/25 - kpln_pen * P_100^4 * P_111) + 3 * ((kpln_depen * P_511)/25 - kpln_pen * P_100^3 * P_110 * P_101) +
+  3 * ((kpln_depen * P_521)/50 - kpln_pen * P_100^3 * P_110 * P_111) + 2 * ((kpln_depen * P_521)/50 - kpln_pen  * P_100^2 * P_110^2 * P_101) + 
+  2 * ((kpln_depen * P_531)/50 - kpln_pen * P_100^2 * P_110^2 * P_111) + 1 * ((kpln_depen * P_531)/50 - kpln_pen * P_100 * P_110^3 * P_101) +
+  1 * ((kpln_depen * P_541)/25 - kpln_pen * P_100 * P_110^3 * P_111) +    
+  3 * ((kpln_depen * P_502)/10 - kpln_pen * P_100^3 * P_101^2) + 
+  3 * ((kpln_depen * P_512)/50 - kpln_pen * P_100^3 * P_101 * P_111) + 2 * ((kpln_depen * P_512)/50 - kpln_pen * P_100^2 * P_110 * P_101^2) +
+  3 * ((kpln_depen * P_522)/100 - kpln_pen * P_100^3 * P_111^2) + 2 * ((kpln_depen * P_522)/100 - kpln_pen * P_100^2 * P_110 * P_101 * P_111) + 1 * ((kpln_depen * P_522)/100 - kpln_pen * P_100 * P_110^2 * P_101^2) +
+  2 * ((kpln_depen * P_532)/100 - kpln_pen * P_100^2 * P_110 * P_111^2) + 1 * ((kpln_depen * P_532)/100 - kpln_pen  * P_100 * P_110^2 * P_101 * P_111) +
+  1 * ((kpln_depen * P_542)/50 - kpln_pen * P_100 * P_110^2 * P_111^2) +   
+  2 * ((kpln_depen * P_503)/10 - kpln_pen * P_100^2 * P_101^3) + 
+  2 * ((kpln_depen * P_513)/50 - kpln_pen * P_100^2 * P_101^2 * P_111) + 1 * ((kpln_depen * P_513)/50 - kpln_pen * P_100 * P_110 * P_101^3) +
+  2 * ((kpln_depen * P_523)/100 - kpln_pen * P_100^2 * P_101 * P_111^2) + 1 * ((kpln_depen * P_523)/100 - kpln_pen * P_100 * P_110 * P_101^2 * P_111) +
+  2 * ((kpln_depen * P_533)/100 - kpln_pen * P_100^2 * P_111^3) + 1 * ((kpln_depen * P_533)/100 - kpln_pen  * P_100 * P_110 * P_101 * P_111^2) +
+  1 * ((kpln_depen * P_543)/50 - kpln_pen * P_100 * P_110 * P_111^3) +  
+  1 * ((kpln_depen * P_504)/5 - kpln_pen * P_100 * P_101^4) + 
+  1 * ((kpln_depen * P_514)/25 - kpln_pen * P_100 * P_101^3 * P_111) +
+  1 * ((kpln_depen * P_524)/50 - kpln_pen * P_100 * P_101^2 * P_111^2) + 
+  1 * ((kpln_depen * P_534)/50 - kpln_pen * P_100 * P_101 * P_111^3) + 
+  1 * ((kpln_depen * P_544)/25 - kpln_pen * P_100 * P_111^4)) 
+  
+dot(P_110) = ((kserca_pln_de * S_P_110 - kserca_pln * S * P_110) + 
+  (kserca_pln_de * S_P_110_N_10 - kserca_pln * S_N_10 * P_110) +
+  (kserca_pln_de * S_P_110_N_11 - kserca_pln * S_N_11 * P_110) +
+  (kpln_phos_ser16_mon * P_100 - kpln_dephos_ser16_mon * P_110) + 
+  (kpln_dephos_thr17 * P_111 - kpln_phos_thr17 * P_110) +
+  1 * ((kpln_depen * P_510)/5 - kpln_pen * P_100^4 * P_110) +
+  2 * ((kpln_depen * P_520)/10 - kpln_pen * P_100^3 * P_110^2) +
+  3 * ((kpln_depen * P_530)/10 - kpln_pen * P_100^2 * P_110^3) +
+  4 * ((kpln_depen * P_540)/5 - kpln_pen * P_100 * P_110^4) +
+  5 * ((kpln_depen * P_550)/1 - kpln_pen * P_110^5) +  
+  1 * ((kpln_depen * P_511)/25 - kpln_pen * P_100^3 * P_110 * P_101) +
+  1 * ((kpln_depen * P_521)/50 - kpln_pen * P_100^3 * P_110 * P_111) + 2 * ((kpln_depen * P_521)/50 - kpln_pen * P_100^2 * P_110^2 * P_101) + 
+  2 * ((kpln_depen * P_531)/50 - kpln_pen * P_100^2 * P_110^2 * P_111) + 3 * ((kpln_depen * P_531)/50 - kpln_pen * P_100 * P_110^3 * P_101) +
+  3 * ((kpln_depen * P_541)/25 - kpln_pen * P_100 * P_110^3 * P_111) + 4 * ((kpln_depen * P_541)/25 - kpln_pen * P_110^4 * P_101) +    
+  4 * ((kpln_depen * P_551)/5 - kpln_pen * P_110^4 * P_111) + 
+  1 * ((kpln_depen * P_512)/50 - kpln_pen * P_100^2 * P_110 * P_101^2) +
+  1 * ((kpln_depen * P_522)/100 - kpln_pen * P_100^2 * P_110 * P_101 * P_111) + 2 * ((kpln_depen * P_522)/100 - kpln_pen * P_100 * P_110^2 * P_101^2) +
+  1 * ((kpln_depen * P_532)/100 - kpln_pen * P_100^2 * P_110 * P_111^2) + 2 * ((kpln_depen * P_532)/100 - kpln_pen * P_100 * P_110^2 * P_101 * P_111) + 3 * ((kpln_depen * P_532)/100 - kpln_pen * P_110^3 * P_101^2) +  
+  2 * ((kpln_depen * P_542)/50 - kpln_pen * P_100 * P_110^2 * P_111^2) + 3 * ((kpln_depen * P_542)/50 - kpln_pen * P_110^3 * P_101 * P_111) +   
+  3 * ((kpln_depen * P_552)/10 - kpln_pen * P_110^3 * P_111^2) + 
+  1 * ((kpln_depen * P_513)/50 - kpln_pen * P_100 * P_110 * P_101^3) +
+  1 * ((kpln_depen * P_523)/100 - kpln_pen * P_100 * P_110 * P_101^2 * P_111) + 2 * ((kpln_depen * P_523)/100 - kpln_pen * P_110^2 * P_101^3) +
+  1 * ((kpln_depen * P_533)/100 - kpln_pen * P_100 * P_110 * P_101 * P_111^2) + 2 * ((kpln_depen * P_533)/100 - kpln_pen * P_110^2 * P_101^2 * P_111) +
+  1 * ((kpln_depen * P_543)/50 - kpln_pen * P_100 * P_110 * P_111^3) + 2 * ((kpln_depen * P_543)/50 - kpln_pen * P_110^2 * P_101 * P_111^2) + 
+  2 * ((kpln_depen * P_553)/10 - kpln_pen * P_110^2 * P_111^3) + 
+  1 * ((kpln_depen * P_514)/25 - kpln_pen * P_110 * P_101^4) +
+  1 * ((kpln_depen * P_524)/50 - kpln_pen * P_110 * P_101^3 * P_111) +  
+  1 * ((kpln_depen * P_534)/50 - kpln_pen * P_110 * P_101^2 * P_111^2) + 
+  1 * ((kpln_depen * P_544)/25 - kpln_pen * P_110 * P_101 * P_111^3) +
+  1 * ((kpln_depen * P_554)/5 - kpln_pen * P_110 * P_111^4))
+
+dot(P_101) = ((kserca_pln_de * S_P_101 - kserca_pln * S * P_101) + 
+  (kserca_pln_de * S_P_101_N_10 - kserca_pln * S_N_10 * P_101) +
+  (kserca_pln_de * S_P_101_N_11 - kserca_pln * S_N_11 * P_101) +
+  (kpln_dephos_ser16_mon * P_111 - kpln_phos_ser16_mon * P_101) + 
+  (kpln_phos_thr17 * P_100 - kpln_dephos_thr17 * P_101) + 
+  1 * ((kpln_depen * P_501)/5 - kpln_pen * P_100^4 * P_101) +
+  1 * ((kpln_depen * P_511)/25 - kpln_pen * P_100^3 * P_110 * P_101) +
+  1 * ((kpln_depen * P_521)/50 - kpln_pen * P_100^2 * P_110^2 * P_101) + 
+  1 * ((kpln_depen * P_531)/50 - kpln_pen * P_100 * P_110^3 * P_101) +
+  1 * ((kpln_depen * P_541)/25 - kpln_pen * P_110^4 * P_101) +    
+  2 * ((kpln_depen * P_502)/10 - kpln_pen * P_100^3 * P_101^2) + 
+  2 * ((kpln_depen * P_512)/50 - kpln_pen * P_100^2 * P_110 * P_101^2) + 1 * ((kpln_depen * P_512)/50 - kpln_pen * P_100^3 * P_101 * P_111) + 
+  1 * ((kpln_depen * P_522)/100 - kpln_pen * P_100^2 * P_110 * P_101 * P_111) + 2 * ((kpln_depen * P_522)/100 - kpln_pen * P_100 * P_110^2 * P_101^2) +
+  1 * ((kpln_depen * P_532)/100 - kpln_pen * P_100 * P_110^2 * P_101 * P_111) + 2 * ((kpln_depen * P_532)/100 - kpln_pen * P_110^3 * P_101^2) +  
+  1 * ((kpln_depen * P_542)/50 - kpln_pen * P_110^3 * P_101 * P_111) +   
+  3 * ((kpln_depen * P_503)/10 - kpln_pen * P_100^2 * P_101^3) +
+  3 * ((kpln_depen * P_513)/50 - kpln_pen * P_100 * P_110 * P_101^3) + 2 * ((kpln_depen * P_513)/50 - kpln_pen * P_100^2 * P_101^2 * P_111) + 
+  2 * ((kpln_depen * P_523)/100 - kpln_pen * P_100 * P_110 * P_101^2 * P_111) + 3 * ((kpln_depen * P_523)/100 - kpln_pen * P_110^2 * P_101^3) + 1 * ((kpln_depen * P_523)/100 - kpln_pen * P_100^2 * P_101 * P_111^2) +
+  1 * ((kpln_depen * P_533)/100 - kpln_pen * P_100 * P_110 * P_101 * P_111^2) + 2 * ((kpln_depen * P_533)/100 - kpln_pen * P_110^2 * P_101^2 * P_111) +
+  1 * ((kpln_depen * P_543)/50 - kpln_pen * P_110^2 * P_101 * P_111^2) + 
+  4 * ((kpln_depen * P_504)/5 - kpln_pen * P_101^4 * P_100) + 
+  4 * ((kpln_depen * P_514)/25 - kpln_pen * P_110 * P_101^4) + 3 * ((kpln_depen * P_514)/25 - kpln_pen * P_100 * P_101^3 * P_111) + 
+  3 * ((kpln_depen * P_524)/50 - kpln_pen * P_110 * P_101^3 * P_111) + 2 * ((kpln_depen * P_524)/50 - kpln_pen * P_100 * P_101^2 * P_111^2) +   
+  2 * ((kpln_depen * P_534)/50 - kpln_pen * P_110 * P_101^2 * P_111^2) + 1 * ((kpln_depen * P_534)/50 - kpln_pen * P_100 * P_101 * P_111^3) +  
+  1 * ((kpln_depen * P_544)/25 - kpln_pen * P_110 * P_111^3 * P_101) +
+  5 * ((kpln_depen * P_505)/1 - kpln_pen * P_101^5) +
+  4 * ((kpln_depen * P_515)/5 - kpln_pen * P_101^4 * P_111) + 
+  3 * ((kpln_depen * P_525)/10 - kpln_pen * P_101^3 * P_111^2) +  
+  2 * ((kpln_depen * P_535)/10 - kpln_pen * P_101^2 * P_111^3) + 
+  1 * ((kpln_depen * P_545)/5 - kpln_pen * P_101 * P_111^4)) 
+  
+dot(P_111) = ((kserca_pln_de * S_P_111 - kserca_pln * S * P_111) + 
+  (kserca_pln_de * S_P_111_N_10 - kserca_pln * S_N_10 * P_111) +
+  (kserca_pln_de * S_P_111_N_11 - kserca_pln * S_N_11 * P_111) +
+  (kpln_phos_ser16_mon * P_101 - kpln_dephos_ser16_mon * P_111) + 
+  (kpln_phos_thr17 * P_110 - kpln_dephos_thr17 * P_111) + 
+  1 * ((kpln_depen * P_511)/25 - kpln_pen * P_100^4 * P_111) +
+  1 * ((kpln_depen * P_521)/50 - kpln_pen * P_100^3 * P_110 * P_111) + 
+  1 * ((kpln_depen * P_531)/50 - kpln_pen * P_100^2 * P_110^2 * P_111) +
+  1 * ((kpln_depen * P_541)/25 - kpln_pen * P_100 * P_110^3 * P_111) +
+  1 * ((kpln_depen * P_551)/5 - kpln_pen * P_110^4 * P_111) +       
+  1 * ((kpln_depen * P_512)/50 - kpln_pen * P_100^3 * P_101 * P_111) + 
+  1 * ((kpln_depen * P_522)/100 - kpln_pen * P_100^2 * P_110 * P_101 * P_111) + 2 * ((kpln_depen * P_522)/100 - kpln_pen  * P_100^3 * P_111^2) +
+  1 * ((kpln_depen * P_532)/100 - kpln_pen * P_100 * P_110^2 * P_101 * P_111) + 2 * ((kpln_depen * P_532)/100 - kpln_pen * P_100^2 * P_110 * P_111^2) +  
+  1 * ((kpln_depen * P_542)/50 - kpln_pen * P_110^3 * P_101 * P_111) + 2 * ((kpln_depen * P_542)/50 - kpln_pen * P_100 * P_110^2 * P_111^2) +    
+  2 * ((kpln_depen * P_552)/10 - kpln_pen * P_110^3 * P_111^2) + 
+  1 * ((kpln_depen * P_513)/50 - kpln_pen * P_100^2 * P_101^2 * P_111) + 
+  1 * ((kpln_depen * P_523)/100 - kpln_pen * P_100 * P_110 * P_101^2 * P_111) + 2 * ((kpln_depen * P_523)/100 - kpln_pen * P_100^2 * P_101 * P_111^2) +
+  2 * ((kpln_depen * P_533)/100 - kpln_pen * P_100 * P_110 * P_101 * P_111^2) + 1 * ((kpln_depen * P_533)/100 - kpln_pen * P_110^2 * P_101^2 * P_111) + 3 * ((kpln_depen * P_533)/100 - kpln_pen * P_100^2 * P_111^3) +
+  2 * ((kpln_depen * P_543)/50 - kpln_pen * P_110^2 * P_101 * P_111^2) + 3 * ((kpln_depen * P_543)/50 - kpln_pen * P_100 * P_110 * P_111^3) +   
+  3 * ((kpln_depen * P_553)/10 - kpln_pen * P_110^2 * P_111^3) +   
+  1 * ((kpln_depen * P_514)/25 - kpln_pen * P_100 * P_101^3 * P_111) + 
+  1 * ((kpln_depen * P_524)/50 - kpln_pen * P_110 * P_101^3 * P_111) + 2 * ((kpln_depen * P_524)/50 - kpln_pen * P_100 * P_101^2 * P_111^2) +   
+  2 * ((kpln_depen * P_534)/50 - kpln_pen * P_110 * P_101^2 * P_111^2) + 3 * ((kpln_depen * P_534)/50 - kpln_pen * P_100 * P_101 * P_111^3) +  
+  3 * ((kpln_depen * P_544)/25 - kpln_pen * P_110 * P_111^3 * P_101) + 4 * ((kpln_depen * P_544)/25 - kpln_pen * P_100 * P_111^4) +
+  4 * ((kpln_depen * P_554)/5 - kpln_pen * P_110 * P_111^4) +
+  1 * ((kpln_depen * P_515)/5 - kpln_pen * P_101^4 * P_111) + 
+  2 * ((kpln_depen * P_525)/10 - kpln_pen * P_101^3 * P_111^2) +  
+  3 * ((kpln_depen * P_535)/10 - kpln_pen * P_101^2 * P_111^3) + 
+  4 * ((kpln_depen * P_545)/5 - kpln_pen * P_101 * P_111^4) + 
+  5 * ((kpln_depen * P_555)/1 - kpln_pen * P_111^5))
+  
+dot(P_500) = ((kpln_dephos_ser16_pen * P_510 - 5 * kpln_phos_ser16_pen * P_500) + (kpln_dephos_thr17 * P_501 - 5 * kpln_phos_thr17 * P_500) + 
+        (kpln_pen * P_100^5 - (kpln_depen * P_500)/1))
+    
+dot(P_510) = ((2 * kpln_dephos_ser16_pen * P_520 - 4 * kpln_phos_ser16_pen * P_510) + (kpln_dephos_thr17 * P_511 - 5 * kpln_phos_thr17 * P_510) + (5 * kpln_phos_ser16_pen * P_500 - kpln_dephos_ser16_pen * P_510) + 
+        (kpln_pen * P_100^4 * P_110 - (kpln_depen * P_510)/5))
+    
+dot(P_520) = ((3 * kpln_dephos_ser16_pen * P_530 - 3 * kpln_phos_ser16_pen * P_520) + (kpln_dephos_thr17 * P_521 - 5 * kpln_phos_thr17 * P_520) + (4 * kpln_phos_ser16_pen * P_510 - 2 * kpln_dephos_ser16_pen * P_520) + 
+        (kpln_pen * P_100^3 * P_110^2 - (kpln_depen * P_520)/10)) 
+    
+dot(P_530) = ((4 * kpln_dephos_ser16_pen * P_540 - 2 * kpln_phos_ser16_pen * P_530) + (kpln_dephos_thr17 * P_531 - 5 * kpln_phos_thr17 * P_530) + (3 * kpln_phos_ser16_pen * P_520 - 3 * kpln_dephos_ser16_pen * P_530) + 
+        (kpln_pen * P_100^2 * P_110^3 - (kpln_depen * P_530)/10))
+    
+dot(P_540) = ((5 * kpln_dephos_ser16_pen * P_550 - kpln_phos_ser16_pen * P_540) + (kpln_dephos_thr17 * P_541 - 5 * kpln_phos_thr17 * P_540) + (2 * kpln_phos_ser16_pen * P_530 - 4 * kpln_dephos_ser16_pen * P_540) + 
+        (kpln_pen * P_100 * P_110^4 - (kpln_depen * P_540)/5))
+    
+dot(P_550) = ((kpln_dephos_thr17 * P_551 - 5 * kpln_phos_thr17 * P_550) + (kpln_phos_ser16_pen * P_540 - 5 * kpln_dephos_ser16_pen * P_550) + 
+        (kpln_pen * P_110^5 - (kpln_depen * P_550)/1))
+    
+dot(P_501) = ((kpln_dephos_ser16_pen * P_511 - 5 * kpln_phos_ser16_pen * P_501) + (2 * kpln_dephos_thr17 * P_502 - 4 * kpln_phos_thr17 * P_501) + (5 * kpln_phos_thr17 * P_500 - kpln_dephos_thr17 * P_501) + 
+        (kpln_pen * P_100^4 * P_101 - (kpln_depen * P_501)/5))
+    
+dot(P_511) = ((2 * kpln_dephos_ser16_pen * P_521 - 4 * kpln_phos_ser16_pen * P_511) + (2 * kpln_dephos_thr17 * P_512 - 4 * kpln_phos_thr17 * P_511) + (5 * kpln_phos_ser16_pen * P_501 - kpln_dephos_ser16_pen * P_511) + (5 * kpln_phos_thr17 * P_510 - kpln_dephos_thr17 * P_511) + 
+        (kpln_pen * P_100^3 * P_110 * P_101 - (kpln_depen * P_511)/25) + (kpln_pen * P_100^4 * P_111 - (kpln_depen * P_511)/25))
+    
+dot(P_521) = ((3 * kpln_dephos_ser16_pen * P_531 - 3 * kpln_phos_ser16_pen * P_521) + (2 * kpln_dephos_thr17 * P_522 - 4 * kpln_phos_thr17 * P_521) + (4 * kpln_phos_ser16_pen * P_511 - 2 * kpln_dephos_ser16_pen * P_521) + (5 * kpln_phos_thr17 * P_520 - kpln_dephos_thr17 * P_521) + 
+        (kpln_pen * P_100^2 * P_110^2 * P_101 - (kpln_depen * P_521)/50) + (kpln_pen * P_100^3 * P_111 * P_110 - (kpln_depen * P_521)/50))
+    
+dot(P_531) = ((4 * kpln_dephos_ser16_pen * P_541 - 2 * kpln_phos_ser16_pen * P_531) + (2 * kpln_dephos_thr17 * P_532 - 4 * kpln_phos_thr17 * P_531) + (3 * kpln_phos_ser16_pen * P_521 - 3 * kpln_dephos_ser16_pen * P_531) + (5 * kpln_phos_thr17 * P_530 - kpln_dephos_thr17 * P_531) + 
+        (kpln_pen * P_100^2 * P_111 * P_110^2 - (kpln_depen * P_531)/50) + (kpln_pen * P_100 * P_110^3 * P_101 - (kpln_depen * P_531)/50))
+   
+dot(P_541) = ((5 * kpln_dephos_ser16_pen * P_551 - kpln_phos_ser16_pen * P_541) + (2 * kpln_dephos_thr17 * P_542 - 4 * kpln_phos_thr17 * P_541) + (2 * kpln_phos_ser16_pen * P_531 - 4 * kpln_dephos_ser16_pen * P_541) + (5 * kpln_phos_thr17 * P_540 - kpln_dephos_thr17 * P_541) + 
+        (kpln_pen * P_100 * P_111 * P_110^3 - (kpln_depen * P_541)/25) + (kpln_pen * P_110^4 * P_101 - (kpln_depen * P_541)/25))
+    
+dot(P_551) = ((2 * kpln_dephos_thr17 * P_552 - 4 * kpln_phos_thr17 * P_551) + (kpln_phos_ser16_pen * P_541 - 5 * kpln_dephos_ser16_pen * P_551) + (5 * kpln_phos_thr17 * P_550 - kpln_dephos_thr17 * P_551) + 
+        (kpln_pen * P_110^4 * P_111 - (kpln_depen * P_551)/5))
+    
+dot(P_502) = ((kpln_dephos_ser16_pen * P_512 - 5 * kpln_phos_ser16_pen * P_502) + (3 * kpln_dephos_thr17 * P_503 - 3 * kpln_phos_thr17 * P_502) + (4 * kpln_phos_thr17 * P_501 - 2 * kpln_dephos_thr17 * P_502) + 
+        (kpln_pen * P_100^3 * P_101^2 - (kpln_depen * P_502)/10))
+    
+dot(P_512) = ((2 * kpln_dephos_ser16_pen * P_522 - 4 * kpln_phos_ser16_pen * P_512) + (3 * kpln_dephos_thr17 * P_513 - 3 * kpln_phos_thr17 * P_512) + (5 * kpln_phos_ser16_pen * P_502 - kpln_dephos_ser16_pen * P_512) + (4 * kpln_phos_thr17 * P_511 - 2 * kpln_dephos_thr17 * P_512) + 
+        (kpln_pen * P_100^2 * P_110 * P_101^2 - (kpln_depen * P_512)/50) + (kpln_pen * P_100^3 * P_111 * P_101 - (kpln_depen * P_512)/50))
+    
+dot(P_522) = ((3 * kpln_dephos_ser16_pen * P_532 - 3 * kpln_phos_ser16_pen * P_522) + (3 * kpln_dephos_thr17 * P_523 - 3 * kpln_phos_thr17 * P_522) + (4 * kpln_phos_ser16_pen * P_512 - 2 * kpln_dephos_ser16_pen * P_522) + (4 * kpln_phos_thr17 * P_521 - 2 * kpln_dephos_thr17 * P_522) + 
+        (kpln_pen * P_100^2 * P_111 * P_110 * P_101 - (kpln_depen * P_522)/100) + (kpln_pen * P_100 * P_110^2 * P_101^2 - (kpln_depen * P_522)/100) + (kpln_pen * P_100^3 * P_111^2 - (kpln_depen * P_522)/100))
+    
+dot(P_532) = ((4 * kpln_dephos_ser16_pen * P_542 - 2 * kpln_phos_ser16_pen * P_532) + (3 * kpln_dephos_thr17 * P_533 - 3 * kpln_phos_thr17 * P_532) + (3 * kpln_phos_ser16_pen * P_522 - 3 * kpln_dephos_ser16_pen * P_532) + (4 * kpln_phos_thr17 * P_531 - 2 * kpln_dephos_thr17 * P_532) + 
+        (kpln_pen * P_100 * P_111 * P_110^2 * P_101 - (kpln_depen * P_532)/100) + (kpln_pen * P_111^2 * P_110 * P_100^2 - (kpln_depen * P_532)/100) + (kpln_pen * P_110^3 * P_101^2 - (kpln_depen * P_532)/100))
+    
+dot(P_542) = ((5 * kpln_dephos_ser16_pen * P_552 - kpln_phos_ser16_pen * P_542) + (3 * kpln_dephos_thr17 * P_543 - 3 * kpln_phos_thr17 * P_542) + (2 * kpln_phos_ser16_pen * P_532 - 4 * kpln_dephos_ser16_pen * P_542) + (4 * kpln_phos_thr17 * P_541 - 2 * kpln_dephos_thr17 * P_542) + 
+        (kpln_pen * P_100 * P_111^2 * P_110^2 - (kpln_depen * P_542)/50) + (kpln_pen * P_111 * P_110^3 * P_101 - (kpln_depen * P_542)/50))
+    
+dot(P_552) = ((3 * kpln_dephos_thr17 * P_553 - 3 * kpln_phos_thr17 * P_552) + (kpln_phos_ser16_pen * P_542 - 5 * kpln_dephos_ser16_pen * P_552) + (4 * kpln_phos_thr17 * P_551 - 2 * kpln_dephos_thr17 * P_552) + 
+        (kpln_pen * P_111^2 * P_110^3 - (kpln_depen * P_552)/10))
+     
+dot(P_503) = ((kpln_dephos_ser16_pen * P_513 - 5 * kpln_phos_ser16_pen * P_503) + (4 * kpln_dephos_thr17 * P_504 - 2 * kpln_phos_thr17 * P_503) + (3 * kpln_phos_thr17 * P_502 - 3 * kpln_dephos_thr17 * P_503) + 
+        (kpln_pen * P_100^2 * P_101^3 - (kpln_depen * P_503)/10))
+    
+dot(P_513) = ((2 * kpln_dephos_ser16_pen * P_523 - 4 * kpln_phos_ser16_pen * P_513) + (4 * kpln_dephos_thr17 * P_514 - 2 * kpln_phos_thr17 * P_513) + (5 * kpln_phos_ser16_pen * P_503 - kpln_dephos_ser16_pen * P_513) + (3 * kpln_phos_thr17 * P_512 - 3 * kpln_dephos_thr17 * P_513) + 
+        (kpln_pen * P_100^2 * P_111 * P_101^2 - (kpln_depen * P_513)/50) + (kpln_pen  * P_100 * P_110 * P_101^3 - (kpln_depen * P_513)/50))
+    
+dot(P_523) = ((3 * kpln_dephos_ser16_pen * P_533 - 3 * kpln_phos_ser16_pen * P_523) + (4 * kpln_dephos_thr17 * P_524 - 2 * kpln_phos_thr17 * P_523) + (4 * kpln_phos_ser16_pen * P_513 - 2 * kpln_dephos_ser16_pen * P_523) + (3 * kpln_phos_thr17 * P_522 - 3 * kpln_dephos_thr17 * P_523) + 
+        (kpln_pen * P_100 * P_111 * P_110 * P_101^2 - (kpln_depen * P_523)/100) + (kpln_pen * P_111^2 * P_100^2 * P_101 - (kpln_depen * P_523)/100) + (kpln_pen * P_110^2 * P_101^3 - (kpln_depen * P_523)/100))
+        
+dot(P_533) = ((4 * kpln_dephos_ser16_pen * P_543 - 2 * kpln_phos_ser16_pen * P_533) + (4 * kpln_dephos_thr17 * P_534 - 2 * kpln_phos_thr17 * P_533) + (3 * kpln_phos_ser16_pen * P_523 - 3 * kpln_dephos_ser16_pen * P_533) + (3 * kpln_phos_thr17 * P_532 - 3 * kpln_dephos_thr17 * P_533) + 
+        (kpln_pen * P_100 * P_111^2 * P_110 * P_101 - (kpln_depen * P_533)/100) + (kpln_pen * P_111 * P_110^2 * P_101^2 - (kpln_depen * P_533)/100) + (kpln_pen * P_100^2 * P_111^3 - (kpln_depen * P_533)/100))
+    
+dot(P_543) = ((5 * kpln_dephos_ser16_pen * P_553 - kpln_phos_ser16_pen * P_543) + (4 * kpln_dephos_thr17 * P_544 - 2 * kpln_phos_thr17 * P_543) + (2 * kpln_phos_ser16_pen * P_533 - 4 * kpln_dephos_ser16_pen * P_543) + (3 * kpln_phos_thr17 * P_542 - 3 * kpln_dephos_thr17 * P_543) + 
+        (kpln_pen * P_111^2 * P_110^2 * P_101 - (kpln_depen * P_543)/50) + (kpln_pen * P_100 * P_111^3 * P_110 - (kpln_depen * P_543)/50))
+    
+dot(P_553) = ((4 * kpln_dephos_thr17 * P_554 - 2 * kpln_phos_thr17 * P_553) + (kpln_phos_ser16_pen * P_543 - 5 * kpln_dephos_ser16_pen * P_553) + (3 * kpln_phos_thr17 * P_552 - 3 * kpln_dephos_thr17 * P_553) + 
+        (kpln_pen * P_111^3 * P_110^2 - (kpln_depen * P_553)/10))
+    
+dot(P_504) = ((kpln_dephos_ser16_pen * P_514 - 5 * kpln_phos_ser16_pen * P_504) + (5 * kpln_dephos_thr17 * P_505 - kpln_phos_thr17 * P_504) + (2 * kpln_phos_thr17 * P_503 - 4 * kpln_dephos_thr17 * P_504) + 
+        (kpln_pen * P_100 * P_101^4 - (kpln_depen * P_504)/5))
+    
+dot(P_514) = ((2 * kpln_dephos_ser16_pen * P_524 - 4 * kpln_phos_ser16_pen * P_514) + (5 * kpln_dephos_thr17 * P_515 - kpln_phos_thr17 * P_514) + (5 * kpln_phos_ser16_pen * P_504 - kpln_dephos_ser16_pen * P_514) + (2 * kpln_phos_thr17 * P_513 - 4 * kpln_dephos_thr17 * P_514) + 
+        (kpln_pen * P_100 * P_111 * P_101^3 - (kpln_depen * P_514)/25) + (kpln_pen * P_110 * P_101^4 - (kpln_depen * P_514)/25))
+    
+dot(P_524) = ((3 * kpln_dephos_ser16_pen * P_534 - 3 * kpln_phos_ser16_pen * P_524) + (5 * kpln_dephos_thr17 * P_525 - kpln_phos_thr17 * P_524) + (4 * kpln_phos_ser16_pen * P_514 - 2 * kpln_dephos_ser16_pen * P_524) + (2 * kpln_phos_thr17 * P_523 - 4 * kpln_dephos_thr17 * P_524) + 
+        (kpln_pen * P_100 * P_111^2 * P_101^2 - (kpln_depen * P_524)/50) + (kpln_pen * P_111 * P_110 * P_101^3 - (kpln_depen * P_524)/50))
+    
+dot(P_534) = ((4 * kpln_dephos_ser16_pen * P_544 - 2 * kpln_phos_ser16_pen * P_534) + (5 * kpln_dephos_thr17 * P_535 - kpln_phos_thr17 * P_534) + (3 * kpln_phos_ser16_pen * P_524 - 3 * kpln_dephos_ser16_pen * P_534) + (2 * kpln_phos_thr17 * P_533 - 4 * kpln_dephos_thr17 * P_534) + 
+        (kpln_pen * P_111^2 * P_110 * P_101^2 - (kpln_depen * P_534)/50) + (kpln_pen * P_100 * P_111^3 * P_101 - (kpln_depen * P_534)/50))
+    
+dot(P_544) = ((5 * kpln_dephos_ser16_pen * P_554 - kpln_phos_ser16_pen * P_544) + (5 * kpln_dephos_thr17 * P_545 - kpln_phos_thr17 * P_544) + (2 * kpln_phos_ser16_pen * P_534 - 4 * kpln_dephos_ser16_pen * P_544) + (2 * kpln_phos_thr17 * P_543 - 4 * kpln_dephos_thr17 * P_544) + 
+        (kpln_pen * P_111^3 * P_110 * P_101 - (kpln_depen * P_544)/25) + (kpln_pen * P_100 * P_111^4 - (kpln_depen * P_544)/25))
+    
+dot(P_554) = ((5 * kpln_dephos_thr17 * P_555 - kpln_phos_thr17 * P_554) + (kpln_phos_ser16_pen * P_544 - 5 * kpln_dephos_ser16_pen * P_554) + (2 * kpln_phos_thr17 * P_553 - 4 * kpln_dephos_thr17 * P_554) + 
+        (kpln_pen * P_111^4 * P_110 - (kpln_depen * P_554)/5))
+    
+dot(P_505) = ((kpln_dephos_ser16_pen * P_515 - 5 * kpln_phos_ser16_pen * P_505) + (kpln_phos_thr17 * P_504 - 5 * kpln_dephos_thr17 * P_505) + 
+        (kpln_pen * P_101^5 - (kpln_depen * P_505)/1))
+    
+dot(P_515) = ((2 * kpln_dephos_ser16_pen * P_525 - 4 * kpln_phos_ser16_pen * P_515) + (kpln_phos_thr17 * P_514 - 5 * kpln_dephos_thr17 * P_515) + (5 * kpln_phos_ser16_pen * P_505 - kpln_dephos_ser16_pen * P_515) + 
+        (kpln_pen * P_101^4 * P_111 - (kpln_depen * P_515)/5))
+    
+dot(P_525) = ((3 * kpln_dephos_ser16_pen * P_535 - 3 * kpln_phos_ser16_pen * P_525) + (kpln_phos_thr17 * P_524 - 5 * kpln_dephos_thr17 * P_525) + (4 * kpln_phos_ser16_pen * P_515 - 2 * kpln_dephos_ser16_pen * P_525) + 
+        (kpln_pen * P_101^3 * P_111^2 - (kpln_depen * P_525)/10))
+    
+dot(P_535) = ((4 * kpln_dephos_ser16_pen * P_545 - 2 * kpln_phos_ser16_pen * P_535) + (kpln_phos_thr17 * P_534 - 5 * kpln_dephos_thr17 * P_535) + (3 * kpln_phos_ser16_pen * P_525 - 3 * kpln_dephos_ser16_pen * P_535) + 
+        (kpln_pen * P_101^2 * P_111^3 - (kpln_depen * P_535)/10))
+    
+dot(P_545) = ((5 * kpln_dephos_ser16_pen * P_555 - kpln_phos_ser16_pen * P_545) + (kpln_phos_thr17 * P_544 - 5 * kpln_dephos_thr17 * P_545) + (2 * kpln_phos_ser16_pen * P_535 - 4 * kpln_dephos_ser16_pen * P_545) + 
+        (kpln_pen * P_101 * P_111^4 - (kpln_depen * P_545)/5))
+    
+dot(P_555) = ((kpln_phos_thr17 * P_554 - 5 * kpln_dephos_thr17 * P_555) + (kpln_phos_ser16_pen * P_545 - 5 * kpln_dephos_ser16_pen * P_555) +
+        (kpln_pen * P_111^5 - (kpln_depen * P_555)/1)) 
+
+dot(N_10) = ((kserca_sln_de * S_N_10 - kserca_sln * S * N_10) + 
+  (kserca_sln_de * S_P_100_N_10 - kserca_sln * S_P_100 * N_10) +
+  (kserca_sln_de * S_P_110_N_10 - kserca_sln * S_P_110 * N_10) +
+  (kserca_sln_de * S_P_101_N_10 - kserca_sln * S_P_101 * N_10) +
+  (kserca_sln_de * S_P_111_N_10 - kserca_sln * S_P_111 * N_10) +
+  (ksln_dephos * N_11 - ksln_phos * N_10) +
+  5 * ((ksln_depen * N_50)/1 - ksln_pen * N_10^5) +
+  4 * ((ksln_depen * N_51)/5 - ksln_pen * N_10^4 * N_11) +
+  3 * ((ksln_depen * N_52)/10 - ksln_pen * N_10^3 * N_11^2) +
+  2 * ((ksln_depen * N_53)/10 - ksln_pen * N_10^2 * N_11^3) +
+  1 * ((ksln_depen * N_54)/5 - ksln_pen * N_10 * N_11^4)) 
+  
+dot(N_11) = ((kserca_sln_de * S_N_11 - kserca_sln * S * N_11) + 
+  (kserca_sln_de * S_P_100_N_11 - kserca_sln * S_P_100 * N_11) +
+  (kserca_sln_de * S_P_110_N_11 - kserca_sln * S_P_110 * N_11) +
+  (kserca_sln_de * S_P_101_N_11 - kserca_sln * S_P_101 * N_11) +
+  (kserca_sln_de * S_P_111_N_11 - kserca_sln * S_P_111 * N_11) +
+  (ksln_phos * N_10 - ksln_dephos * N_11) +
+  1 * ((ksln_depen * N_51)/5 - ksln_pen * N_10^4 * N_11) +
+  2 * ((ksln_depen * N_52)/10 - ksln_pen * N_10^3 * N_11^2) +
+  3 * ((ksln_depen * N_53)/10 - ksln_pen * N_10^2 * N_11^3) +
+  4 * ((ksln_depen * N_54)/5 - ksln_pen * N_10 * N_11^4) +
+  5 * ((ksln_depen * N_55)/1 - ksln_pen * N_11^5)) 
+  
+dot(N_50) = ((ksln_pen * N_10^5 - (ksln_depen * N_50)/1) + (ksln_dephos * N_51 - 5 * ksln_phos * N_50)) 
+dot(N_51) = ((ksln_pen * N_11 * N_10^4 - (ksln_depen * N_51)/5) + (2 * ksln_dephos * N_52 - 4 * ksln_phos * N_51) + (5 * ksln_phos * N_50 - ksln_dephos * N_51))
+dot(N_52) = ((ksln_pen * N_11^2 * N_10^3 - (ksln_depen * N_52)/10) + (3 * ksln_dephos * N_53 - 3 * ksln_phos * N_52) + (4 * ksln_phos * N_51 - 2 * ksln_dephos * N_52))
+dot(N_53) = ((ksln_pen * N_11^3 * N_10^2 - (ksln_depen * N_53)/10) + (4 * ksln_dephos * N_54 - 2 * ksln_phos * N_53) + (3 * ksln_phos * N_52 - 3 * ksln_dephos * N_53))
+dot(N_54) = ((ksln_pen * N_11^4 * N_10 - (ksln_depen * N_54)/5) + (5 * ksln_dephos * N_55 - ksln_phos * N_54) + (2 * ksln_phos * N_53 - 4 * ksln_dephos * N_54))
+dot(N_55) = ((ksln_pen * N_11^5 - (ksln_depen * N_55)/1) + (ksln_phos * N_54 - 5 * ksln_dephos * N_55))
+
+#Calculate SERCA fluxes
+hill = 2.2
+shift = 0
+corr_fact = 0.0055
+
+V_max_SERCA = 3.17	* corr_fact
+Km_SERCA = 0.00022
+V_max_SERCA_PLN = 3.17 * corr_fact
+Km_SERCA_PLN = 0.00063 + shift
+Km_SERCA_PLN_P_ser16 = 0.00031 + shift	
+Km_SERCA_PLN_P_thr17 = 0.00054 + shift	
+Km_SERCA_PLN_P_both = 0.00040 + shift			
+V_max_SERCA_SLN = 2.2 * corr_fact	
+Km_SERCA_SLN = 0.0003
+V_max_SERCA_PLN_SLN = 2.2 * corr_fact
+V_max_SERCA_SLN_P = 2.75 * corr_fact
+Km_SERCA_PLN_SLN = 0.00063 + shift
+
+Km_r = 2.75
+Ca_SR_in_mM = calcium_concentration.CaNSR/1000
+SERCA_reverse =(Ca_SR_in_mM / Km_r)^hill
+
+Ca_in_mM = calcium_concentration.Cai / 1000		
+J_up_SERCA = V_max_SERCA * S * ((Ca_in_mM/Km_SERCA)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA)^hill + SERCA_reverse)    
+J_up_SERCA_PLN = V_max_SERCA_PLN * (S_P_100 + S_P_100_N_11) * ((Ca_in_mM/Km_SERCA_PLN)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA_PLN)^hill + SERCA_reverse)
+J_up_SERCA_SLN = V_max_SERCA_SLN * (S_N_10 + S_P_110_N_10 + S_P_101_N_10 + S_P_111_N_10) * ((Ca_in_mM/Km_SERCA_SLN)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA_SLN)^hill + SERCA_reverse)
+J_up_SERCA_PLN_SLN = V_max_SERCA_PLN_SLN * S_P_100_N_10 * ((Ca_in_mM/Km_SERCA_PLN_SLN)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA_PLN_SLN)^hill + SERCA_reverse)
+
+J_up_SERCA_PLN_P_ser16 = V_max_SERCA * (S_P_110) * ((Ca_in_mM/Km_SERCA_PLN_P_ser16)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA_PLN_P_ser16)^hill + SERCA_reverse)     
+J_up_SERCA_PLN_P_thr17 = V_max_SERCA * (S_P_101) * ((Ca_in_mM/Km_SERCA_PLN_P_thr17)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA_PLN_P_thr17)^hill + SERCA_reverse) 
+J_up_SERCA_PLN_P_both = V_max_SERCA * (S_P_111) * ((Ca_in_mM/Km_SERCA_PLN_P_both)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA_PLN_P_both)^hill + SERCA_reverse) 
+
+J_up_SERCA_SLN_P = V_max_SERCA_SLN_P * (S_N_11) * ((Ca_in_mM/Km_SERCA_SLN)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA_SLN)^hill + SERCA_reverse) 
+J_up_SERCA_PLN_P_ser16_SLN_P = V_max_SERCA_SLN_P * (S_P_110_N_11) * ((Ca_in_mM/Km_SERCA_PLN_P_ser16)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA_PLN_P_ser16)^hill + SERCA_reverse) 
+J_up_SERCA_PLN_P_thr17_SLN_P = V_max_SERCA_SLN_P * (S_P_101_N_11) * ((Ca_in_mM/Km_SERCA_PLN_P_thr17)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA_PLN_P_thr17)^hill + SERCA_reverse) 
+J_up_SERCA_PLN_P_both_SLN_P = V_max_SERCA_SLN_P * (S_P_111_N_11) * ((Ca_in_mM/Km_SERCA_PLN_P_both)^hill - SERCA_reverse) / (1 + (Ca_in_mM/Km_SERCA_PLN_P_both)^hill + SERCA_reverse) 
+		
+J_up_new = J_up_SERCA + J_up_SERCA_PLN + J_up_SERCA_SLN + J_up_SERCA_PLN_SLN + J_up_SERCA_PLN_P_ser16 + J_up_SERCA_PLN_P_thr17 + J_up_SERCA_PLN_P_both + J_up_SERCA_SLN_P + J_up_SERCA_PLN_P_ser16_SLN_P + J_up_SERCA_PLN_P_thr17_SLN_P + J_up_SERCA_PLN_P_both_SLN_P
+
+
+
+
+
+[calcium_pump_current]
+Km_pCa = 0.5
+    in [uM]
+i_pCa = i_pCa_max * calcium_concentration.Cai ^ 2 / (Km_pCa ^ 2 + calcium_concentration.Cai ^ 2)
+    in [A/F]
+i_pCa_max = 1
+    in [A/F]
+
+[environment]
+time = 0 bind time
+    in [ms]
+pace = 0 bind pace
+
+[fast_sodium_current]
+dot(C_Na1) = alpha_Na12 * C_Na2 + beta_Na13 * O_Na + alpha_Na3 * IF_Na - (beta_Na12 * C_Na1 + alpha_Na13 * C_Na1 + beta_Na3 * C_Na1)
+    in [1]
+dot(C_Na2) = alpha_Na11 * C_Na3 + beta_Na12 * C_Na1 + alpha_Na3 * IC_Na2 - (beta_Na11 * C_Na2 + alpha_Na12 * C_Na2 + beta_Na3 * C_Na2)
+    in [1]
+C_Na3 = 1 - (O_Na + C_Na1 + C_Na2 + IF_Na + I1_Na + I2_Na + IC_Na2 + IC_Na3)
+    in [1]
+E_Na = membrane.R * membrane.T / membrane.F * log((0.9 * membrane.Nao + 0.1 * membrane.Ko) / (0.9 * sodium_concentration.Nai + 0.1 * potassium_concentration.Ki))
+    in [mV]
+dot(I1_Na) = alpha_Na4 * IF_Na + beta_Na5 * I2_Na - (beta_Na4 * I1_Na + alpha_Na5 * I1_Na)
+    in [1]
+dot(I2_Na) = alpha_Na5 * I1_Na - beta_Na5 * I2_Na
+    in [1]
+dot(IC_Na2) = alpha_Na11 * IC_Na3 + beta_Na12 * IF_Na + beta_Na3 * C_Na2 - (beta_Na11 * IC_Na2 + alpha_Na12 * IC_Na2 + alpha_Na3 * IC_Na2)
+    in [1]
+dot(IC_Na3) = beta_Na11 * IC_Na2 + beta_Na3 * C_Na3 - (alpha_Na11 * IC_Na3 + alpha_Na3 * IC_Na3)
+    in [1]
+dot(IF_Na) = alpha_Na2 * O_Na + beta_Na3 * C_Na1 + beta_Na4 * I1_Na + alpha_Na12 * IC_Na2 - (beta_Na2 * IF_Na + alpha_Na3 * IF_Na + alpha_Na4 * IF_Na + beta_Na12 * IF_Na)
+    in [1]
+dot(O_Na) = alpha_Na13 * C_Na1 + beta_Na2 * IF_Na - (beta_Na13 * O_Na + alpha_Na2 * O_Na)
+    in [1]
+alpha_Na11 = 3.802 [mS/uF] / (0.1027 * exp(-(membrane.V + 2.5 [mV]) / 17 [mV]) + 0.2 * exp(-(membrane.V + 2.5 [mV]) / 150 [mV]))
+    in [mS/uF]
+alpha_Na12 = 3.802 [mS/uF] / (0.1027 * exp(-(membrane.V + 2.5 [mV]) / 15 [mV]) + 0.23 * exp(-(membrane.V + 2.5 [mV]) / 150 [mV]))
+    in [mS/uF]
+alpha_Na13 = 3.802 [mS/uF] / (0.1027 * exp(-(membrane.V + 2.5 [mV]) / 12 [mV]) + 0.25 * exp(-(membrane.V + 2.5 [mV]) / 150 [mV]))
+    in [mS/uF]
+alpha_Na2 = 1 [mS/uF] / (0.188495 * exp(-(membrane.V + 7 [mV]) / 16.6 [mV]) + 0.393956)
+    in [mS/uF]
+alpha_Na3 = 7e-7 [mS/uF] * exp(-(membrane.V + 7 [mV]) / 7.7 [mV])
+    in [mS/uF]
+alpha_Na4 = alpha_Na2 / 1000
+    in [mS/uF]
+alpha_Na5 = alpha_Na2 / 95000
+    in [mS/uF]
+beta_Na11 = 0.1917 [mS/uF] * exp(-(membrane.V + 2.5 [mV]) / 20.3 [mV])
+    in [mS/uF]
+beta_Na12 = 0.2 [mS/uF] * exp(-(membrane.V - 2.5 [mV]) / 20.3 [mV])
+    in [mS/uF]
+beta_Na13 = 0.22 [mS/uF] * exp(-(membrane.V - 7.5 [mV]) / 20.3 [mV])
+    in [mS/uF]
+beta_Na2 = alpha_Na13 * alpha_Na2 * alpha_Na3 / (beta_Na13 * beta_Na3)
+    in [mS/uF]
+beta_Na3 = 0.0084 [mS/uF] + 2e-5 [1/mV/ms] * (membrane.V + 7 [mV])
+    in [mS/uF]
+beta_Na4 = alpha_Na3
+    in [mS/uF]
+beta_Na5 = alpha_Na3 / 50
+    in [mS/uF]
+g_Na = 13
+    in [mS/uF]
+i_Na = (1 - parameters.INa_Block) * g_Na * O_Na * (membrane.V - E_Na)
+    in [A/F]
+
+[fast_transient_outward_potassium_current]
+E_K = membrane.R * membrane.T / membrane.F * log(membrane.Ko / potassium_concentration.Ki)
+    in [mV]
+alpha_a = 0.18064 [mS/uF] * exp(0.03577 [1/mV] * (membrane.V + 30 [mV]))
+    in [mS/uF]
+alpha_i = 0.000152 [mS/uF] * exp(-(membrane.V + 13.5 [mV]) / 7 [mV]) / (0.0067083 * exp(-(membrane.V + 33.5 [mV]) / 7 [mV]) + 1)
+    in [mS/uF]
+dot(ato_f) = alpha_a * (1 - ato_f) - beta_a * ato_f
+    in [1]
+beta_a = 0.3956 [mS/uF] * exp(-0.06237 [1/mV] * (membrane.V + 30 [mV]))
+    in [mS/uF]
+beta_i = 0.00095 [mS/uF] * exp((membrane.V + 33.5 [mV]) / 7 [mV]) / (0.051335 * exp((membrane.V + 33.5 [mV]) / 7 [mV]) + 1)
+    in [mS/uF]
+g_Kto_f = 0.4067
+    in [mS/uF]
+i_Kto_f = (1 - parameters.Ito_Block) * g_Kto_f * ato_f ^ 3 * ito_f * (membrane.V - E_K)
+    in [A/F]
+dot(ito_f) = alpha_i * (1 - ito_f) - beta_i * ito_f
+    in [1]
+
+[membrane]
+Acap = 0.0001534
+    in [cm^2]
+Cao = 1000*parameters.Ca_o
+    in [uM]
+Cm = 1
+    in [uF/cm^2]
+F = 96.5
+    in [C/mmol]
+Ko = 1000*parameters.K_o
+    in [uM]
+Nao = 1000*parameters.Na_o
+    in [uM]
+R = 8.314
+    in [J/mol/K]
+T = 298
+    in [K]
+dot(V) = -(L_type_calcium_current.i_CaL + calcium_pump_current.i_pCa + sodium_calcium_exchange_current.i_NaCa + calcium_background_current.i_Cab + fast_sodium_current.i_Na + sodium_background_current.i_Nab + sodium_potassium_pump_current.i_NaK + fast_transient_outward_potassium_current.i_Kto_f + slow_transient_outward_potassium_current.i_Kto_s + time_independent_potassium_current.i_K1 + slow_delayed_rectifier_potassium_current.i_Ks + ultra_rapidly_activating_delayed_rectifier_potassium_current.i_Kur + non_inactivating_steady_state_potassium_current.i_Kss + rapid_delayed_rectifier_potassium_current.i_Kr + calcium_activated_chloride_current.i_ClCa + i_stim)
+    in [mV]
+VJSR = 1.2e-7
+    in [uL]
+VNSR = 2.098e-6
+    in [uL]
+Vmyo = 2.584e-5
+    in [uL]
+Vss = 1.485e-9
+    in [uL]
+#Istim = engine.pace * amplitude
+#i_stim = piecewise(environment.time >= stim_start and environment.time <= stim_end and environment.time - stim_start - floor((environment.time - stim_start) / stim_period) * stim_period <= stim_duration, stim_amplitude, 0 [A/F])
+#    in [A/F]
+i_stim = environment.pace * stim_amplitude
+    in [A/F]
+stim_amplitude = -80
+    in [A/F]
+#stim_duration = 0.5
+#    in [ms]
+#stim_end = 100000
+#    in [ms]
+#stim_period = 71.43
+#    in [ms]
+#stim_start = 20
+#    in [ms]
+
+[non_inactivating_steady_state_potassium_current]
+dot(aKss) = (slow_transient_outward_potassium_current.ass - aKss) / tau_Kss
+    in [1]
+g_Kss = 0.05
+    in [mS/uF]
+dot(iKss) = 0 [mS/uF]
+    in [1]
+i_Kss = g_Kss * aKss * iKss * (membrane.V - fast_transient_outward_potassium_current.E_K)
+    in [A/F]
+tau_Kss = 39.3 [ms] * exp(-0.0862 [1/mV] * membrane.V) + 13.17 [ms]
+    in [ms]
+
+[potassium_concentration]
+dot(Ki) = -(fast_transient_outward_potassium_current.i_Kto_f + slow_transient_outward_potassium_current.i_Kto_s + time_independent_potassium_current.i_K1 + slow_delayed_rectifier_potassium_current.i_Ks + non_inactivating_steady_state_potassium_current.i_Kss + ultra_rapidly_activating_delayed_rectifier_potassium_current.i_Kur + rapid_delayed_rectifier_potassium_current.i_Kr - 2 * sodium_potassium_pump_current.i_NaK) * membrane.Acap * membrane.Cm / (membrane.Vmyo * membrane.F)
+    in [uM]
+
+[rapid_delayed_rectifier_potassium_current]
+C_K0 = 1 - (C_K1 + C_K2 + O_K + I_K)
+    in [1]
+dot(C_K1) = alpha_a0 * C_K0 + kb * C_K2 - (beta_a0 * C_K1 + kf * C_K1)
+    in [1]
+dot(C_K2) = kf * C_K1 + beta_a1 * O_K - (kb * C_K2 + alpha_a1 * C_K2)
+    in [1]
+dot(I_K) = alpha_i * O_K - beta_i * I_K
+    in [1]
+dot(O_K) = alpha_a1 * C_K2 + beta_i * I_K - (beta_a1 * O_K + alpha_i * O_K)
+    in [1]
+alpha_a0 = 0.022348 [mS/uF] * exp(0.01176 [1/mV] * membrane.V)
+    in [mS/uF]
+alpha_a1 = 0.013733 [mS/uF] * exp(0.038198 [1/mV] * membrane.V)
+    in [mS/uF]
+alpha_i = 0.090821 [mS/uF] * exp(0.023391 [1/mV] * (membrane.V + 5 [mV]))
+    in [mS/uF]
+beta_a0 = 0.047002 [mS/uF] * exp(-0.0631 [1/mV] * membrane.V)
+    in [mS/uF]
+beta_a1 = 6.89e-5 [mS/uF] * exp(-0.04178 [1/mV] * membrane.V)
+    in [mS/uF]
+beta_i = 0.006497 [mS/uF] * exp(-0.03268 [1/mV] * (membrane.V + 5 [mV]))
+    in [mS/uF]
+g_Kr = 0.078
+    in [mS/uF]
+i_Kr = (1 - parameters.IKr_Block) * g_Kr * O_K * (membrane.V - membrane.R * membrane.T / membrane.F * log((0.98 * membrane.Ko + 0.02 * membrane.Nao) / (0.98 * potassium_concentration.Ki + 0.02 * sodium_concentration.Nai)))
+    in [A/F]
+kb = 0.036778
+    in [mS/uF]
+kf = 0.023761
+    in [mS/uF]
+
+[ryanodine_receptors]
+P_C1 = 1 - (P_C2 + P_O1 + P_O2)
+    in [1]
+dot(P_C2) = k_plus_c * P_O1 - k_minus_c * P_C2
+    in [1]
+dot(P_O1) = k_plus_a * calcium_concentration.Cass ^ n * P_C1 + k_minus_b * P_O2 + k_minus_c * P_C2 - (k_minus_a * P_O1 + k_plus_b * calcium_concentration.Cass ^ m * P_O1 + k_plus_c * P_O1)
+    in [1]
+dot(P_O2) = k_plus_b * calcium_concentration.Cass ^ m * P_O1 - k_minus_b * P_O2
+    in [1]
+k_minus_a = 0.07125
+    in [mS/uF]
+k_minus_b = 0.965
+    in [mS/uF]
+k_minus_c = 0.0008
+    in [mS/uF]
+k_plus_a = 0.006075
+    in [m^12/s/mol^4 (1000000000000000)]
+k_plus_b = 0.00405
+    in [m^9/s/mol^3 (1000000000000)]
+k_plus_c = 0.009
+    in [mS/uF]
+m = 3
+    in [1]
+n = 4
+    in [1]
+
+[slow_delayed_rectifier_potassium_current]
+alpha_n =  4.81332999999999970e-6 [1/mV/ms] * (membrane.V + 26.5 [mV]) / (1 - exp(-0.128 [1/mV] * (membrane.V + 26.5 [mV])))
+    in [mS/uF]
+beta_n =  9.53332999999999974e-5 [mS/uF] * exp(-0.038 [1/mV] * (membrane.V + 26.5 [mV]))
+    in [mS/uF]
+g_Ks = 0.00575
+    in [mS/uF]
+i_Ks = (1 - parameters.IKs_Block) * g_Ks * nKs ^ 2 * (membrane.V - fast_transient_outward_potassium_current.E_K)
+    in [A/F]
+dot(nKs) = alpha_n * (1 - nKs) - beta_n * nKs
+    in [1]
+
+[slow_transient_outward_potassium_current]
+ass = 1 / (1 + exp(-(membrane.V + 22.5 [mV]) / 7.7 [mV]))
+    in [1]
+dot(ato_s) = (ass - ato_s) / tau_ta_s
+    in [1]
+g_Kto_s = 0
+    in [mS/uF]
+i_Kto_s = (1 - parameters.Ito_Block) * g_Kto_s * ato_s * ito_s * (membrane.V - fast_transient_outward_potassium_current.E_K)
+    in [A/F]
+iss = 1 / (1 + exp((membrane.V + 45.2 [mV]) / 5.7 [mV]))
+    in [1]
+dot(ito_s) = (iss - ito_s) / tau_ti_s
+    in [1]
+tau_ta_s = 0.493 [ms] * exp(-0.0629 [1/mV] * membrane.V) + 2.058 [ms]
+    in [ms]
+tau_ti_s = 270 [ms] + 1050 [ms] / (1 + exp((membrane.V + 45.2 [mV]) / 5.7 [mV]))
+    in [ms]
+
+[sodium_background_current]
+g_Nab = 0.0026
+    in [mS/uF]
+i_Nab = g_Nab * (membrane.V - fast_sodium_current.E_Na)
+    in [A/F]
+
+[sodium_calcium_exchange_current]
+K_mCa = 1380
+    in [uM]
+K_mNa = 87500
+    in [uM]
+eta = 0.35
+    in [1]
+i_NaCa = (1 - parameters.INCX_Block) * k_NaCa * 1 / (K_mNa ^ 3 + membrane.Nao ^ 3) * 1 / (K_mCa + membrane.Cao) * 1 / (1 + k_sat * exp((eta - 1) * membrane.V * membrane.F / (membrane.R * membrane.T))) * (exp(eta * membrane.V * membrane.F / (membrane.R * membrane.T)) * sodium_concentration.Nai ^ 3 * membrane.Cao - exp((eta - 1) * membrane.V * membrane.F / (membrane.R * membrane.T)) * membrane.Nao ^ 3 * calcium_concentration.Cai)
+    in [A/F]
+k_NaCa = 292.8
+    in [A/F]
+k_sat = 0.1
+    in [1]
+
+[sodium_concentration]
+dot(Nai) = -(fast_sodium_current.i_Na + sodium_background_current.i_Nab + 3 * sodium_potassium_pump_current.i_NaK + 3 * sodium_calcium_exchange_current.i_NaCa) * membrane.Acap * membrane.Cm / (membrane.Vmyo * membrane.F)
+    in [uM]
+
+[sodium_potassium_pump_current]
+Km_Ko = 1500
+    in [uM]
+Km_Nai = 21000
+    in [uM]
+f_NaK = 1 / (1 + 0.1245 * exp(-0.1 * membrane.V * membrane.F / (membrane.R * membrane.T)) + 0.0365 * sigma * exp(-membrane.V * membrane.F / (membrane.R * membrane.T)))
+    in [1]
+i_NaK = (1 - parameters.INaK_Block) * i_NaK_max * f_NaK * 1 / (1 + (Km_Nai / sodium_concentration.Nai) ^ 1.5) * membrane.Ko / (membrane.Ko + Km_Ko)
+    in [A/F]
+i_NaK_max = 0.88
+    in [A/F]
+sigma = 1 / 7 * (exp(membrane.Nao / 67300 [uM]) - 1)
+    in [1]
+
+[time_independent_potassium_current]
+i_K1 = (1 - parameters.IK1_Block) * 0.2938 [mS/uF] * membrane.Ko / (membrane.Ko + 210 [uM]) * (membrane.V - fast_transient_outward_potassium_current.E_K) / (1 + exp(0.0896 [1/mV] * (membrane.V - fast_transient_outward_potassium_current.E_K)))
+    in [A/F]
+
+[ultra_rapidly_activating_delayed_rectifier_potassium_current]
+dot(aur) = (slow_transient_outward_potassium_current.ass - aur) / tau_aur
+    in [1]
+g_Kur = 0.16
+    in [mS/uF]
+i_Kur = (1 - parameters.IKur_Block) * g_Kur * aur * iur * (membrane.V - fast_transient_outward_potassium_current.E_K)
+    in [A/F]
+dot(iur) = (slow_transient_outward_potassium_current.iss - iur) / tau_iur
+    in [1]
+tau_aur = 0.493 [ms] * exp(-0.0629 [1/mV] * membrane.V) + 2.058 [ms]
+    in [ms]
+tau_iur = 1200 [ms] - 170 [ms] / (1 + exp((membrane.V + 45.2 [mV]) / 5.7 [mV]))
+    in [ms]
+
+[[protocol]]
+# Level  Start    Length   Period   Multiplier
+1.0      100.0    0.5      1000.0   0
+
+[[script]]
+import matplotlib.pyplot as pl
+import myokit
+
+# Get model from magic method
+m = get_model()
+
+# Create a pacing protocol
+bcl = 1000
+p = myokit.pacing.blocktrain(bcl, 0.5, offset=20)
+
+# Method 1: Run a simulation, determine the APD afterwards:
+#
+# Create simulation
+s = myokit.Simulation(m, p)
+s.set_constant('parameters.useSERCAComplexModel', 0)
+# Prepacing until steady state, here 100 beats
+s.pre(1000*bcl)
+
+# Log the next 4000ms
+#d1 = s.run(4000,log=myokit.LOG_STATE+myokit.LOG_INTER+myokit.LOG_BOUND)                                                                                          nicht sicher  nicht sicher
+d1 = s.run(4000,log=['environment.time', 'membrane.V', 'calcium_concentration.Cai', 'sodium_concentration.Nai', 'calcium_concentration.Cass', 'calcium_fluxes.J_up', 'non_inactivating_steady_state_potassium_current.i_Kss', 'calcium_concentration.CaJSR', 'calcium_fluxes.J_rel', 'sodium_calcium_exchange_current.i_NaCa'])
+d1.save_csv('Bondarenko2004_Export_Original_SLNOE2.csv')
+# Calculate the APD (defined here as the time V > -70mV)
+apds = d1.apd(threshold=-70, v='membrane.V')
+
+# The variable 'apds' now holds a list (for multiple apds)
+# Each entry in the list is a tuple (start, duration)
+start1 = apds["start"][0]
+duration1 = apds["duration"][0]
+print('(Method 1) APD = ' + str(duration1) + ' [ms]')
+
+s = myokit.Simulation(m, p)
+s.set_constant('parameters.useSERCAComplexModel', 1)
+s.pre(1000*bcl)
+#d2 = s.run(4000,log=myokit.LOG_STATE+myokit.LOG_INTER+myokit.LOG_BOUND)
+d2 = s.run(4000,log=['environment.time', 'membrane.V', 'calcium_concentration.Cai', 'sodium_concentration.Nai', 'calcium_concentration.Cass', 'calcium_fluxes.J_up', 'non_inactivating_steady_state_potassium_current.i_Kss', 'calcium_concentration.CaJSR', 'calcium_fluxes.J_rel', 'sodium_calcium_exchange_current.i_NaCa'])
+d2.save_csv('Bondarenko2004_Export_NewSERCA_SLNOE2.csv')
+# Show the calculated APDs
+nrows = 5
+ncols = 2
+
+pl.figure()
+pl.subplot(nrows,ncols,1)
+pl.plot(d1['environment.time'], d1['membrane.V'], d2['environment.time'], d2['membrane.V'])
+pl.xlim(10, 300)
+pl.arrow(start1, -70, duration1, 0, head_width=5, head_length=10,
+    length_includes_head=True)
+pl.text(start1 + 40, -60, str(duration1))
+
+pl.subplot(nrows,ncols,2)
+pl.plot(d1['environment.time'], d1['membrane.V'], d2['environment.time'], d2['membrane.V'])
+pl.xlim(10, 300)
+pl.arrow(start1, -70, duration1, 0, head_width=5, head_length=10,
+    length_includes_head=True)
+pl.text(start1 + 40, -60, str(duration1))
+
+pl.subplot(nrows,ncols,3)
+pl.plot(d1['environment.time'], d1['calcium_concentration.Cai'], d2['environment.time'], d2['calcium_concentration.Cai'])
+pl.xlim(10, 300)
+
+pl.subplot(nrows,ncols,5)
+pl.plot(d1['environment.time'], d1['sodium_concentration.Nai'], d2['environment.time'], d2['sodium_concentration.Nai'])
+pl.xlim(10, 300)
+
+pl.subplot(nrows,ncols,7)
+pl.plot(d1['environment.time'], d1['calcium_concentration.CaJSR'], d2['environment.time'], d2['calcium_concentration.CaJSR'])
+pl.xlim(10, 300)
+
+pl.subplot(nrows,ncols,9)
+pl.plot(d1['environment.time'], d1['calcium_fluxes.J_up'], d2['environment.time'], d2['calcium_fluxes.J_up'])
+pl.xlim(10, 300)
+
+pl.subplot(nrows,ncols,4)
+pl.plot(d1['environment.time'], d1['non_inactivating_steady_state_potassium_current.i_Kss'])
+pl.xlim(10, 300)
+
+pl.subplot(nrows,ncols,6)
+pl.plot(d1['environment.time'], d1['calcium_concentration.Cass'], d2['environment.time'], d2['calcium_concentration.Cass'])
+pl.xlim(10, 300)
+
+pl.subplot(nrows,ncols,8)
+pl.plot(d1['environment.time'], d1['calcium_fluxes.J_rel'], d2['environment.time'], d2['calcium_fluxes.J_rel'])
+pl.xlim(10, 300)
+
+pl.subplot(nrows,ncols,10)
+pl.plot(d1['environment.time'], d1['sodium_calcium_exchange_current.i_NaCa'], d2['environment.time'], d2['sodium_calcium_exchange_current.i_NaCa'])
+pl.xlim(10, 300)
+
